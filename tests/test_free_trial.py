@@ -9,6 +9,8 @@ from pages.login_page import LoginPage
 from pages.more_page import MorePage
 from pages.profile_page import ProfilePage
 
+
+
 @pytest.mark.usefixtures("driver")
 class TestFreeTrial:
 
