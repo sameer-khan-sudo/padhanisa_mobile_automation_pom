@@ -3,12 +3,14 @@ import json
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 
+
 @pytest.fixture(scope="session")
 def user_data():
     """Fixture to load test data from JSON file."""
     with open('test_data.json') as f:
         data = json.load(f)
     return data
+
 
 @pytest.fixture(scope="class")
 def driver(request):
@@ -43,4 +45,4 @@ def driver(request):
     driver.implicitly_wait(120)
     request.cls.driver = driver
     yield driver
-    driver.quit()
+    # driver.quit()

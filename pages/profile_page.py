@@ -1,6 +1,7 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from pages.base_class import BaseClass
 
+
 class ProfilePage(BaseClass):
 
     def select_profile(self, profile_name):

@@ -1,11 +1,22 @@
+import logging
+import random
+
+import pytest
 from selenium.common import NoSuchElementException
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
+
 class BaseClass:
     def __init__(self, driver):
         self.driver = driver
+        self.logger = logging.getLogger(self.__class__.__name__)  # Initialize a logger for the class
+        logging.basicConfig(level=logging.INFO)  # Set logging level (you can configure this as needed)
 
     def enter_text(self, locator, text):
         # Use wait_and_click to ensure the element is clickable before sending keys

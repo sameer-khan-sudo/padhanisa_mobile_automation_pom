@@ -2,6 +2,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from datetime import datetime, timedelta
 from pages.base_class import BaseClass
 
+
 class FreeTrialPage(BaseClass):
     CONTINUE_BUTTON = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Continue"]')
     SUCCESS_HEADER = (AppiumBy.XPATH, '//android.view.View[@content-desc="Free Trial Activated"]')
