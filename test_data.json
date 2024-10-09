@@ -1,0 +1,16 @@
+{
+    "user_details": {
+        "mobile_number": "9927484781",
+        "profile_name": "Sameer Khan"
+    },
+
+    "plan_message": {
+        "plan_name": "Premium",
+        "plan_duration": "12 months"
+    },
+
+    "success_message": {
+        "status": "Success",
+        "message": "User details and plan created successfully."
+    }
+}
