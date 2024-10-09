@@ -1,5 +1,7 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from pages.base_class import BaseClass
+from utils.utils import generate_random_mobile_number
+
 
 class LoginPage(BaseClass):
     SIGN_IN_BUTTON = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Sign In"]')
@@ -23,6 +25,8 @@ class LoginPage(BaseClass):
     def click_get_otp(self):
         self.wait_and_click(*self.CONTINUE_BUTTON)
 
-    def perform_login(self, phone_number):
-        self.enter_phone_number(phone_number)  # Use the argument directly
+    def perform_login(self):
+        phone_number = generate_random_mobile_number(self)  # Generate random mobile number
+        self.enter_phone_number(phone_number)
+        print(f'Generated Mobile Number: {phone_number}')  # Use the generated number
         self.click_get_otp()

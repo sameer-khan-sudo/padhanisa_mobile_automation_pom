@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47d4e696-879e-490b-8732-b1ae8ca81049" name="Changes" comment="Implemented POM!">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="47d4e696-879e-490b-8732-b1ae8ca81049" name="Changes" comment="added git ignore file">
+      <change afterPath="$PROJECT_DIR$/pages/create_profile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/base_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/base_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/free_trial_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/free_trial_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/more_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/more_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_free_trial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_free_trial.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,18 +36,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "sameer-khan-sudo"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sameer-khan-sudo&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/sameer-khan-sudo/padhanisa_mobile_automation_pom.git",
-    "accountId": "3e120ea5-8a7c-44c0-920b-c63c17f92c34"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sameer-khan-sudo/padhanisa_mobile_automation_pom.git&quot;,
+    &quot;accountId&quot;: &quot;3e120ea5-8a7c-44c0-920b-c63c17f92c34&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -57,6 +64,7 @@
     "Python tests.Python tests in test_free_trial.py.executor": "Run",
     "Python.base_class.executor": "Run",
     "Python.base_page.executor": "Run",
+    "Python.create_profile.executor": "Run",
     "Python.free_trial_page.executor": "Run",
     "Python.login_page.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
