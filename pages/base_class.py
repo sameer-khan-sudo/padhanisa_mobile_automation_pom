@@ -1,15 +1,9 @@
 import logging
-import random
 
-import pytest
 from selenium.common import NoSuchElementException
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.actions import interaction
-from selenium.webdriver.common.actions.action_builder import ActionBuilder
-from selenium.webdriver.common.actions.pointer_input import PointerInput
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BaseClass:
@@ -32,7 +26,11 @@ class BaseClass:
         element = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(locator)
         )
-        assert element.text == expected_text, f"Expected text '{expected_text}' not found, got '{element.text}'"
+        # Get the content description attribute
+        actual_text = element.get_attribute('content-desc')
+
+        # Assert that the actual text matches the expected text
+        assert actual_text == expected_text, f"Expected text '{expected_text}' not found, got '{actual_text}'"
 
     # Utility function to wait for an element to be clickable and then click it
     def wait_and_click(self, by, value, timeout=20):

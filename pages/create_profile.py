@@ -1,3 +1,6 @@
+import time
+from datetime import timedelta
+
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from appium.webdriver.common.appiumby import AppiumBy
 from pages.base_class import BaseClass
@@ -6,9 +9,9 @@ from pages.base_class import BaseClass
 class CreateProfile(BaseClass):
     # Locators for elements
     FIRST_NAME_FIELD = (
-    AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().className(\"android.widget.EditText\").instance(0)")
+        AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText").instance(0)')
     LAST_NAME_FIELD = (
-    AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().className(\"android.widget.EditText\").instance(1)")
+        AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().className(\"android.widget.EditText\").instance(1)")
     VOICE_TYPE = (AppiumBy.XPATH, "//android.view.View[@content-desc='Male']")
     AGE_DROPDOWN = (AppiumBy.XPATH, "//android.widget.ImageView[@content-desc='Select']")
     SKILL_LEVEL = (AppiumBy.XPATH, "//android.view.View[@content-desc='Never Learnt Before']")
@@ -20,6 +23,7 @@ class CreateProfile(BaseClass):
         try:
             self.wait_and_click(*self.FIRST_NAME_FIELD)
             self.enter_text(self.FIRST_NAME_FIELD, str(first_name))
+            time.sleep(0.5)
         except (NoSuchElementException, TimeoutException) as e:
             self.logger.error(f"Error entering first name: {e}")  # Log the error
 
@@ -28,6 +32,7 @@ class CreateProfile(BaseClass):
         try:
             self.wait_and_click(*self.LAST_NAME_FIELD)
             self.enter_text(self.LAST_NAME_FIELD, str(last_name))
+            time.sleep(0.5)
         except (NoSuchElementException, TimeoutException) as e:
             self.logger.error(f"Error entering last name: {e}")  # Log the error
 
@@ -44,6 +49,7 @@ class CreateProfile(BaseClass):
             self.wait_and_click(*self.AGE_DROPDOWN)
             age_value_locator = (AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().descriptionContains("{age}")')
             self.wait_and_click(*age_value_locator)
+            time.sleep(0.5)
         except (NoSuchElementException, TimeoutException) as e:
             self.logger.error(f"Error selecting age: {e}")  # Log the error
 
@@ -60,6 +66,7 @@ class CreateProfile(BaseClass):
         try:
             self.wait_and_click(*self.EMAIL_ID)
             self.enter_text(self.EMAIL_ID, str(email))
+            time.sleep(0.5)
         except (NoSuchElementException, TimeoutException) as e:
             self.logger.error(f"Error entering email ID: {e}")  # Log the error
 

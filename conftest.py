@@ -17,7 +17,7 @@ def driver(request):
     """Fixture to setup Appium driver."""
     caps = {
         "platformName": "Android",
-        "platformVersion": "14.0",
+        "platformVersion": "15.0",
         "deviceName": "Pixel",
         "appPackage": "com.saregama.edutech.uat",
         "appActivity": "com.saregama.edutech.MainActivity",

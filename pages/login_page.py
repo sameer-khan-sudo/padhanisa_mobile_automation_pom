@@ -26,7 +26,7 @@ class LoginPage(BaseClass):
         self.wait_and_click(*self.CONTINUE_BUTTON)
 
     def perform_login(self):
-        phone_number = generate_random_mobile_number(self)  # Generate random mobile number
+        phone_number = generate_random_mobile_number()  # Generate random mobile number
         self.enter_phone_number(phone_number)
         print(f'Generated Mobile Number: {phone_number}')  # Use the generated number
         self.click_get_otp()
