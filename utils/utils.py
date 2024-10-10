@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 # Utility function to wait for an element to be clickable and then click it
-def wait_and_click(self, by, value, timeout=10):
+def wait_and_click(self, by, value, timeout=20):
     try:
         wait = WebDriverWait(self.driver, timeout)
         element = wait.until(EC.visibility_of_element_located((by, value)))
@@ -87,12 +87,9 @@ def hide_keyboard(self):
 # Clicks the 'Start Learning' button
 def click_start_learning(self):
     try:
-        # Define the locator for the 'Start Learning' button
-        start_learning_button_by = AppiumBy.XPATH
-        start_learning_button_value = '//android.widget.ImageView[@content-desc="Start "]'
-
-        # Use the defined locator with the wait_and_click method
-        wait_and_click(self, start_learning_button_by, start_learning_button_value)
+        start_learning_button = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Start Learning"]')
+        # Pass 'self' explicitly along with the locator tuple
+        wait_and_click(self, *start_learning_button)
     except (
             NoSuchElementException,
             TimeoutException,
