@@ -1,13 +1,13 @@
 import pytest
-from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import TimeoutException
+
 from conftest import driver
 from pages.create_profile import CreateProfile
 from pages.free_trial_page import FreeTrialPage
 from pages.login_page import LoginPage
 from pages.more_page import MorePage
 from pages.profile_page import ProfilePage
-from utils.utils import tap_at_coordinates, scroll_down, hide_keyboard, click_start_learning, get_formatted_expiry_date
+from utils.utils import tap_at_coordinates, scroll_down, hide_keyboard, click_start_learning
 
 
 @pytest.mark.usefixtures("driver")
@@ -66,21 +66,23 @@ class TestFreeTrial:
         except TimeoutException as e:
             pytest.fail(f"Failed to select Free Trial plan: {str(e)}")
 
-    # Click the 'Continue' button after selecting a free trial plan.
+    # Click the 'Continue'
     def test_click_on_continue_button(self, setup_pages):
         try:
             self.free_trial_page.click_continue()
-            self.free_trial_page.verify_free_trial_activation()
-
-
         except TimeoutException as e:
-            pytest.fail(f"Failed to click on 'Continue' button: {str(e)}")
-    # @pytest.mark.skip
+            pytest.fail(f"Failed to click on Continue button : {str(e)}")
+
+    # Verify success message and expiry
+    def test_verify_expiry_and_message(self, setup_pages):
+        try:
+            self.free_trial_page.verify_free_trial_activation()
+        except TimeoutException as e:
+            pytest.fail(f"Failed to verify success message and expiry : {str(e)}")
+    #
     # # Click on 'Start Learning' button
-    # def test_click_on_start_learning(self,setup_pages):
+    # def test_click_on_start_learning(self, setup_pages):
     #     try:
     #         click_start_learning(self)
     #     except TimeoutException as e:
     #         pytest.fail(f"Failed to click on 'Start Learning' button: {str(e)}")
-    #
-    #
