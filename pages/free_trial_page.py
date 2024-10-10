@@ -12,10 +12,20 @@ from utils.utils import get_formatted_expiry_date
 
 
 class FreeTrialPage(BaseClass):
-    SUCCESS_HEADER = (AppiumBy.XPATH, '//android.view.View[@content-desc="Free Trial Activated"]')
-    HOME_SCREEN_HEADER = (AppiumBy.XPATH, '//android.view.View[@content-desc="Your Personal Singing Teacher"]')
+    SUCCESS_SCREEN_HEADER = (AppiumBy.XPATH, '//android.view.View[@content-desc="Free Trial Activated"]')
+    HOME_SCREEN_HEADER_LOCATOR = (AppiumBy.XPATH, '//android.view.View[@content-desc="Your Personal Singing Teacher"]')
     FREE_TRIAL_FIELD = (AppiumBy.XPATH, '//android.view.View[contains(@content-desc,"Trial Plan")]')
     CONTINUE_BUTTON = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Continue"]')
+
+    YOUR_TEXT_LOCATOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Your")')
+    DAYS_FREE_PREMIUM_LOCATOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("14 Days Free Premium")')
+    IS_NOW_ACTIVE_LOCATOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("is now active.")')
+
+    SUCCESS_SCREEN_HEADER_TEXT = 'Free Trial Activated'
+    YOUR_TEXT = 'Your'
+    DAYS_FREE_PREMIUM_TEXT = '14 Days Free Premium'
+    IS_NOW_ACTIVE_TEXT = 'is now active.'
+    HOME_SCREEN_HEADER_TEXT = "Your Personal Singing Teacher"
 
     # Selects the free trial plan.
     def select_trial_plan(self):
@@ -26,7 +36,8 @@ class FreeTrialPage(BaseClass):
                 TimeoutException,
                 StaleElementReferenceException,
                 ElementNotVisibleException,
-                WebDriverException) as e:
+                WebDriverException
+        ) as e:
             print(f"Error while selecting free trial plan: {str(e)}")
 
     # Clicks the Continue button.
@@ -38,7 +49,8 @@ class FreeTrialPage(BaseClass):
                 TimeoutException,
                 StaleElementReferenceException,
                 ElementNotVisibleException,
-                WebDriverException) as e:
+                WebDriverException
+        ) as e:
             print(f"Error while clicking on Continue button: {str(e)}")
 
     # Verifies free trial activation by message and expiry date
@@ -50,27 +62,43 @@ class FreeTrialPage(BaseClass):
             expiry_message = f'Enjoy unlimited access to all Premium benefits. Plan expiry: {formatted_expiry_date}'
             expiry_message_locator = (AppiumBy.XPATH, f'//android.view.View[@content-desc="{expiry_message}"]')
 
-            self.verify_text_on_screen(self.SUCCESS_HEADER, "Free Trial Activated")
-            self.verify_text_on_screen(expiry_message_locator, expiry_message)
+            # Verify other home screen texts
+            text_locators = [
+                self.SUCCESS_SCREEN_HEADER,
+                self.YOUR_TEXT_LOCATOR,
+                self.DAYS_FREE_PREMIUM_LOCATOR,
+                self.IS_NOW_ACTIVE_LOCATOR,
+                expiry_message_locator
+            ]
+            expected_texts = [
+                self.SUCCESS_SCREEN_HEADER_TEXT,
+                self.YOUR_TEXT,
+                self.DAYS_FREE_PREMIUM_TEXT,
+                self.IS_NOW_ACTIVE_TEXT,
+                expiry_message
+            ]
 
-            expiry_message_element = self.driver.find_element(*expiry_message_locator)
-            content_desc = expiry_message_element.get_attribute('content-desc')
-            print(f"Success Message: {content_desc}")
+            # Verify all the text, message and expiry on the screen
+            self.verify_text_on_screen(text_locators, expected_texts)
 
-        except (
-                NoSuchElementException,
-                TimeoutException,
-                StaleElementReferenceException,
-                WebDriverException) as e:
+        except (NoSuchElementException, TimeoutException, StaleElementReferenceException, WebDriverException) as e:
             print(f"Error while verifying free trial activation: {str(e)}")
 
-    # Verifies that the user is redirected to the home screen after trial activation.
-    def verify_home_screen(self):
+    def verify_screen_redirection(self, screen_type):
         try:
-            self.verify_text_on_screen(self.HOME_SCREEN_HEADER, "Your Personal Singing Teacher")
-        except (
-                NoSuchElementException,
-                TimeoutException,
-                StaleElementReferenceException,
-                WebDriverException) as e:
-            print(f"Error while verifying home screen: {str(e)}")
+            if screen_type == 'Home':
+                self.verify_text_on_screen(
+                    (AppiumBy.XPATH, '//android.view.View[@content-desc="Your Personal Singing Teacher"]'),
+                    'Your Personal Singing Teacher'
+                )
+                print("Home screen redirection verified successfully.")
+
+            elif screen_type == 'My Plan':
+                self.verify_text_on_screen(
+                    (AppiumBy.XPATH, '//android.view.View[@content-desc="My Plan"]'),
+                    'My Plan'
+                )
+                print("'My Plan' screen redirection verified successfully.")
+        except Exception as e:
+            print(f"Error during screen redirection verification: {str(e)}")
+

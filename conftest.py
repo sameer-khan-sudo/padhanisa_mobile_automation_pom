@@ -1,3 +1,5 @@
+import sys
+
 import pytest
 import json
 from appium import webdriver
@@ -17,7 +19,7 @@ def driver(request):
     """Fixture to setup Appium driver."""
     caps = {
         "platformName": "Android",
-        "platformVersion": "15.0",
+        "platformVersion": "14.0",
         "deviceName": "Pixel",
         "appPackage": "com.saregama.edutech.uat",
         "appActivity": "com.saregama.edutech.MainActivity",
