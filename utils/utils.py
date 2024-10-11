@@ -84,17 +84,31 @@ def hide_keyboard(self):
         except TimeoutException:
             print("Could not find 'Done' button to hide keyboard")
 
+from time import time
+
 # Clicks the 'Start Learning' button
 def click_start_learning(self):
-    try:
-        start_learning_button = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Start Learning"]')
-        # Pass 'self' explicitly along with the locator tuple
-        wait_and_click(self, *start_learning_button)
-    except (
-            NoSuchElementException,
-            TimeoutException,
-            StaleElementReferenceException,
-            ElementNotVisibleException,
-            WebDriverException) as e:
-        print(f"Error while clicking on Start Learning button: {str(e)}")
+    start_learning_button = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Start Learning"]')
+
+    start_time = time()  # Record the start time
+    timeout = 5  # Set the timeout duration in seconds
+
+    while True:
+        try:
+            # Attempt to wait and click the button
+            wait_and_click(self, *start_learning_button)
+            break  # If successful, exit the loop
+        except (
+                NoSuchElementException,
+                StaleElementReferenceException,
+                ElementNotVisibleException,
+                WebDriverException
+        ) as e:
+            elapsed_time = time() - start_time  # Calculate elapsed time
+            if elapsed_time >= timeout:
+                print("The 'Start Learning' button is not visible within 5 seconds. Terminating the test.")
+                raise AssertionError
+                # break  # Exit the loop after terminating the test
+            print(f"Error while trying to click 'Start Learning' button: {str(e)}. Retrying...")
+
 

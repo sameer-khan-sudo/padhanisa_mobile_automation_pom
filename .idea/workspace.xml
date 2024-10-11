@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47d4e696-879e-490b-8732-b1ae8ca81049" name="Changes" comment="added git ignore file">
-      <change afterPath="$PROJECT_DIR$/pages/create_profile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
+    <list default="true" id="47d4e696-879e-490b-8732-b1ae8ca81049" name="Changes" comment="Activate free trial.">
+      <change afterPath="$PROJECT_DIR$/pages/settings_privacy_policy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/base_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/base_class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/free_trial_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/free_trial_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/more_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/more_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_free_trial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_free_trial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +56,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "Python tests.Python tests in test_free_trial.py.executor": "Run",
     "Python.base_class.executor": "Run",
     "Python.base_page.executor": "Run",
@@ -75,7 +71,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-884f5ed5d46b-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.22855.92" />
+        <option value="bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19" />
       </set>
     </attachedChunks>
   </component>

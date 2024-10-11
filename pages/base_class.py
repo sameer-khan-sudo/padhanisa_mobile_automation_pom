@@ -68,7 +68,7 @@ class BaseClass:
             print(f"Element not found: {value}")
             self.driver.save_screenshot(f"{value}_not_found.png")
             raise
-        except Exception as e:
+        except AssertionError as e:
             print(f"An error occurred while clicking the element: {str(e)}")
             self.driver.save_screenshot(f"{value}_click_error.png")
             raise
