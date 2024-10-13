@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47d4e696-879e-490b-8732-b1ae8ca81049" name="Changes" comment="Activate free trial.">
-      <change afterPath="$PROJECT_DIR$/pages/settings_privacy_policy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/base_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/base_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/create_profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/create_profile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/free_trial_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/free_trial_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/more_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/more_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_free_trial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_free_trial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
     </list>
@@ -63,6 +65,7 @@
     "Python.create_profile.executor": "Run",
     "Python.free_trial_page.executor": "Run",
     "Python.login_page.executor": "Run",
+    "Python.utils.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "dev-1.0",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
