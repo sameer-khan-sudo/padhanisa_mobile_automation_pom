@@ -1,8 +1,7 @@
-import sys
-
-from selenium.common import ElementNotInteractableException, TimeoutException, NoSuchElementException
+from selenium.common import TimeoutException, NoSuchElementException, ElementNotInteractableException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+
 
 class BaseClass:
     def __init__(self, driver):
@@ -32,12 +31,17 @@ class BaseClass:
             actual_text = element.get_attribute('content-desc')
             assert expected_text in actual_text, f"Expected: {expected_text}, Got: {actual_text}"
 
-    def wait_and_click(self, by, value):
-        wait = WebDriverWait(self.driver, 10)
-        element = wait.until(EC.visibility_of_element_located((by, value)))
-        # Wait for the element to be clickable
-        element = wait.until(EC.element_to_be_clickable((by, value)))
-        # Click the element
-        element.click()
+    # Wait and perform click on the button/fields/tab
+    def wait_and_click(self, by, value, timeout=10):
+        try:
+            # Wait for the element to be clickable
+            wait = WebDriverWait(self.driver, timeout)
+            element = wait.until(EC.element_to_be_clickable((by, value)))
+            # Click the element
+            element.click()
+        except NoSuchElementException:
+            raise NoSuchElementException(f"Element with locator ({by}, {value}) was not found in the DOM")
+        except ElementNotInteractableException:
+            raise ElementNotInteractableException(f"Element with locator ({by}, {value}) was not interactable")
 
 

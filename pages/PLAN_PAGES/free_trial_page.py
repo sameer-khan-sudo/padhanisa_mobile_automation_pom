@@ -68,3 +68,8 @@ class FreeTrialPage(BaseClass):
                 'My Plan'
             )
             print("'My Plan' screen redirection verified successfully.")
+
+    # New method added to handle clicking 'Start Learning'
+    def click_start_learning(self):
+        start_learning_button = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Start Learning"]')
+        self.wait_and_click(*start_learning_button)

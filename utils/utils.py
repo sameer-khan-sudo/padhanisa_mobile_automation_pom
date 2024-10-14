@@ -1,38 +1,10 @@
 import random
-from time import time
 from datetime import datetime, timedelta
-
-import pytest
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
-# Utility function to wait for an element to be clickable and then click it
-def wait_and_click(self, by, value):
-    try:
-        # Locate the element directly without waiting
-        element = self.driver.find_element(by, value)
-
-        # Check if the element is displayed and clickable
-        if element.is_displayed() and element.is_enabled():
-            element.click()
-            # print("Successfully clicked the element.")
-        else:
-            raise Exception("Element is not displayed or not clickable")
-    except Exception as e:
-        # Handle the exception as needed
-        print(f"Failed to click element: {str(e)}")
-        raise
-
-
 
 # Generate and return a random 10-digit mobile number
 def generate_random_mobile_number():
@@ -66,8 +38,3 @@ def get_formatted_expiry_date(days=14):
 def hide_keyboard(self):
     self.driver.hide_keyboard()
 
-
-# Clicks the 'Start Learning' button
-def click_start_learning(self):
-    start_learning_button = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Start Learning"]')
-    wait_and_click(self, *start_learning_button)

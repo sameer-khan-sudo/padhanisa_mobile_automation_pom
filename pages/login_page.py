@@ -30,3 +30,11 @@ class LoginPage(BaseClass):
         self.enter_phone_number(phone_number)
         print(f'Generated Mobile Number: {phone_number}')  # Use the generated number
         self.click_get_otp()
+
+    def exist_user_login(self):
+        phone_number = '9927484781'  # Generate random mobile number
+        self.enter_phone_number(phone_number)
+        print(f'Generated Mobile Number: {phone_number}')  # Use the generated number
+        self.click_get_otp()
+
+
