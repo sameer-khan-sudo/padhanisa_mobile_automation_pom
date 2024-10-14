@@ -1,4 +1,3 @@
-from selenium.common import TimeoutException, NoSuchElementException, ElementNotInteractableException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -39,9 +38,5 @@ class BaseClass:
             element = wait.until(EC.element_to_be_clickable((by, value)))
             # Click the element
             element.click()
-        except NoSuchElementException:
-            raise NoSuchElementException(f"Element with locator ({by}, {value}) was not found in the DOM")
-        except ElementNotInteractableException:
-            raise ElementNotInteractableException(f"Element with locator ({by}, {value}) was not interactable")
-
-
+        except Exception as e:
+            raise
