@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="47d4e696-879e-490b-8732-b1ae8ca81049" name="Changes" comment="Activate free trial.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/base_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/base_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/practice_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/practice_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_practice.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_practice.py" afterDir="false" />
     </list>
@@ -110,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728910688950</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Activate free trial.">
+      <option name="closed" value="true" />
+      <created>1728925176614</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925176614</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
