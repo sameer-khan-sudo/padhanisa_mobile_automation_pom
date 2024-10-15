@@ -13,7 +13,7 @@ class TestPracticeMode:
         self.practice_mode_page.click_skip()
 
     def test_print(self):
-        print('Hey')
+        pass
 
 
 
