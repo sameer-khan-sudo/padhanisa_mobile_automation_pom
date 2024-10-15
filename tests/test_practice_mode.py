@@ -14,6 +14,8 @@ class TestPracticeMode:
 
     def test_print(self):
         pass
+    def test_click_on_sign(self):
+        pass
 
 
 

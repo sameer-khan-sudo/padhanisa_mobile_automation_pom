@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Test">
-      <change beforePath="$PROJECT_DIR$/tests/test_practice_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_practice_mode.py" afterDir="false" />
+    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="New Project Setup">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/practice_page.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,11 +21,22 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev-1.0" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sameer-khan-sudo&quot;
+  }
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/sameer-khan-sudo/padhanisa_pom_v3.0.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/sameer-khan-sudo/padhanisa_mobile_automation_pom.git&quot;,
     &quot;accountId&quot;: &quot;3e120ea5-8a7c-44c0-920b-c63c17f92c34&quot;
   }
 }</component>
@@ -44,7 +56,7 @@
     &quot;Python.base_class.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -189,12 +201,21 @@
       <option name="project" value="LOCAL" />
       <updated>1729016650692</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="New Project Setup">
+      <option name="closed" value="true" />
+      <created>1729017691687</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729017691687</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Setup project.." />
     <MESSAGE value="Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test" />
+    <MESSAGE value="New Project Setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Project Setup" />
   </component>
 </project>
