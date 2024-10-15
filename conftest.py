@@ -1,22 +1,10 @@
-import sys
-
 import pytest
-import json
 from appium import webdriver
-from appium.options.android import UiAutomator2Options
+from appium.options.common import AppiumOptions
 
 
-@pytest.fixture(scope="session")
-def user_data():
-    """Fixture to load test data from JSON file."""
-    with open('test_data.json') as f:
-        data = json.load(f)
-    return data
-
-
-@pytest.fixture(scope="class")
-def driver(request):
-    """Fixture to setup Appium driver."""
+@pytest.fixture(scope="module")
+def driver():
     caps = {
         "platformName": "Android",
         "platformVersion": "14.0",
@@ -26,7 +14,7 @@ def driver(request):
         "automationName": "UiAutomator2",
         "appium:ensureWebviewsHavePages": True,
         "appium:nativeWebScreenshot": True,
-        "appium:newCommandTimeout": 120000,
+        "appium:newCommandTimeout": 6000,
         "appium:connectHardwareKeyboard": True,
         "appium:autoGrantPermissions": True,
         "appium:skipUnlock": True,
@@ -34,17 +22,17 @@ def driver(request):
         "appium:resetKeyboard": True,
         "appium:ignoreUnimportantViews": True,
         "appium:enablePerformanceLogging": True,
-        "appium:adbExecTimeout": 120000,
+        "appium:adbExecTimeout": 90000,
         "appium:uiautomator2ServerInstallTimeout": 120000,
         "showTaps": True,
         "noReset": False,
         "fullReset": False,
         "appium:disableIdLocatorAutocompletion": True
+
     }
 
     url = 'http://localhost:4723'
-    driver = webdriver.Remote(url, options=UiAutomator2Options().load_capabilities(caps))
-    driver.implicitly_wait(120)
-    request.cls.driver = driver
+    driver = webdriver.Remote(url, options=AppiumOptions().load_capabilities(caps))
+    # driver.implicitly_wait(120)
     yield driver
-    # driver.quit()
+    # driver.quit()  # Uncomment this line if you want to quit the driver after the tests
