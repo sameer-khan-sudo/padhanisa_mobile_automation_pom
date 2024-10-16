@@ -18,7 +18,7 @@ class TestConceptsMode:
         self.concepts_mode_page.select_class_module()
         time.sleep(1)
 
-    # Test to select 'Concepts' mode
+        # Test to select 'Concepts' mode
     def test_select_concepts_mode(self):
         self.concepts_mode_page.select_concept_mode()
 
