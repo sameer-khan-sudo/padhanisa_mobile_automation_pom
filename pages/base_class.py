@@ -8,6 +8,7 @@ class BasePage:
 
     # Locator for reuse
     SKIP_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Skip")
+    SINGING_CLASSES = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("Singing Classes")')
 
     # Click on 'Skip' button
     def click_skip(self):
@@ -41,3 +42,7 @@ class BasePage:
     # Close the Keyboard
     def close_keyboard(self):
         self.driver.hide_keyboard()
+
+    # Click 'Singing Classes' tab
+    def select_class_module(self):
+        self.wait_and_click(*self.SINGING_CLASSES)

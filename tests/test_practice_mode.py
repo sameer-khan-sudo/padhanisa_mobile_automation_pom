@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from pages.practice_mode_page import PracticeModePage
 
@@ -9,13 +11,13 @@ class TestPracticeMode:
         self.practice_mode_page = PracticeModePage(driver)
 
     # Click on 'Skip' button
-    def test_click_skip(self):
+    def test_click_on_skip(self):
         self.practice_mode_page.click_skip()
 
-    def test_print(self):
-        pass
-    def test_click_on_sign(self):
-        pass
+    # Select 'Sing A Song' tab
+    def test_select_practice_mode(self):
+        self.practice_mode_page.select_practice_mode()
+        time.sleep(1)
 
 
 
