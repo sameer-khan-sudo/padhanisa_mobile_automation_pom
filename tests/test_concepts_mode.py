@@ -22,5 +22,11 @@ class TestConceptsMode:
     def test_select_concepts_mode(self):
         self.concepts_mode_page.select_concept_mode()
 
+    # @pytest.mark.skip
     def test_scroll(self):
-        self.concepts_mode_page.scroll_video_list()
+        self.concepts_mode_page.scroll_concept_video_list()
+        time.sleep(4)
+
+    # @pytest.mark.skip
+    # def test_scroll(self):
+    #     self.concepts_mode_page.scroll_global_search_video_list()
