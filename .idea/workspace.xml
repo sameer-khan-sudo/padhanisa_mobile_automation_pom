@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="New Project Setup">
+    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Scroll">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/concepts_mode_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/concepts_mode_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_concepts_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_concepts_mode.py" afterDir="false" />
@@ -229,13 +229,22 @@
       <option name="project" value="LOCAL" />
       <updated>1729093221234</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Scroll">
+      <option name="closed" value="true" />
+      <created>1729095877458</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1729095877458</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Setup project.." />
     <MESSAGE value="Test" />
     <MESSAGE value="New Project Setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="New Project Setup" />
+    <MESSAGE value="Scroll" />
+    <option name="LAST_COMMIT_MESSAGE" value="Scroll" />
   </component>
 </project>
