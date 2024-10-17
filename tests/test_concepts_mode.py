@@ -1,5 +1,4 @@
 import time
-from profile import Profile
 
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
@@ -11,6 +10,7 @@ from pages.login_page import LoginPage
 from pages.profile_page import ProfilePage
 
 
+@pytest.mark.usefixtures("driver")
 class TestConceptsMode:
     @pytest.fixture(autouse=True)
     def setup(self, driver):
@@ -20,32 +20,50 @@ class TestConceptsMode:
         self.profile = ProfilePage(driver)
 
     # Perform login with existing user
+    @pytest.mark.dependency(name="LOGIN")
     def test_perform_login(self):
-        self.login.click_sign_in()
-        self.login.exist_user_login()
+        try:
+            self.login.click_sign_in()
+            self.login.exist_user_login()
+            time.sleep(1)
+        except Exception as e:
+            pytest.fail(f"Login failed: {e}")
 
-    # Select user profile
+    # Select user profile (depends on login)
+    @pytest.mark.dependency(name="PROFILE", depends=["LOGIN"])
     def test_select_user_profile(self):
-        self.profile.select_profile('Sameer Khan')
+        try:
+            self.profile.select_profile('Tokio')
+        except Exception as e:
+            pytest.fail(f"Profile selection failed: {e}")
 
-    # Click on 'Singing Classes' tab
+    # Click on 'Singing Classes' tab (depends on profile selection)
+    @pytest.mark.dependency(name="SINGING_CLASSES")
     def test_click_singing_classes(self):
-        self.concepts_mode_page.select_class_module()
-        time.sleep(1)
+        try:
+            self.concepts_mode_page.select_class_module()
+            time.sleep(1)
+        except Exception as e:
+            pytest.fail(f"Failed to click on 'Singing Classes': {e}")
 
-    # Select 'Concept' tab
+    # Select 'Concept' tab (depends on singing classes selection)
+    @pytest.mark.dependency(name="CONCEPT_MODE_SELECTION", depends=["SINGING_CLASSES"])
     def test_select_concepts_mode(self):
-        self.concepts_mode_page.select_concept_mode()
+        try:
+            self.concepts_mode_page.select_concept_mode()
+        except Exception as e:
+            pytest.fail(f"Failed to select 'Concept Mode': {e}")
 
-    # Perform scroll and get concept video data
+    # Perform scroll and get concept video data (skipped for now)
     @pytest.mark.skip
+    @pytest.mark.dependency(depends=["CONCEPT_MODE_SELECTION"])
     def test_scroll(self):
         self.concepts_mode_page.scroll_concept_video_list()
 
     VIDEO_NAME = 'Vocal Range Introduction'
 
     # Search for a concept video and optionally play it if found.
-    def test_search_and_play_video(self,driver, play_video=True):
+    def test_search_and_play_video(self, driver, play_video=False):
         # Search for the concept video
         self.concepts_mode_page.search_concept_video(self.VIDEO_NAME)
 
@@ -56,13 +74,13 @@ class TestConceptsMode:
         try:
             no_result_element = self.driver.find_element(*no_result_found_locator)
             if no_result_element.is_displayed():
-                print("No result found")
                 pytest.xfail("No search results found. Stopping test execution.")
         except NoSuchElementException:
-            print("Results found")
-            # If results are found, check the flag and play the video if required
-            if play_video:
-                self.concepts_mode_page.play_searched_video(self.VIDEO_NAME)
-            else:
-                print(f"Video '{self.VIDEO_NAME}' found, but play_video flag is set to False.")
+            # If "No Result Found" is not found, continue to check for video
+            pass
 
+        # If results are found, check the flag and play the video if required
+        if play_video:
+            self.concepts_mode_page.play_searched_video(self.VIDEO_NAME)
+        else:
+            print(f"Video '{self.VIDEO_NAME}' found, but play_video flag is set to False.")

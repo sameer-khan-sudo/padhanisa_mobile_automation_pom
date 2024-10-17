@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Implement concept search video handling.">
-      <change afterPath="$PROJECT_DIR$/pages/login_page.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/profile_page.py" afterDir="false" />
+    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Added login.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/base_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/base_class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/concepts_mode_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/concepts_mode_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_concepts_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_concepts_mode.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -256,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729155012615</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added login.">
+      <option name="closed" value="true" />
+      <created>1729158370222</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1729158370222</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -265,6 +269,7 @@
     <MESSAGE value="New Project Setup" />
     <MESSAGE value="Scroll" />
     <MESSAGE value="Implement concept search video handling." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement concept search video handling." />
+    <MESSAGE value="Added login." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added login." />
   </component>
 </project>
