@@ -8,6 +8,7 @@ from conftest import driver  # Ensure this is defined in your conftest.py
 from pages.concepts_mode_page import ConceptsMode
 from pages.login_page import LoginPage
 from pages.profile_page import ProfilePage
+from utils.helpers import tap_on_screen
 
 
 @pytest.mark.usefixtures("driver")
@@ -25,7 +26,7 @@ class TestConceptsMode:
         try:
             self.login.click_sign_in()
             self.login.exist_user_login()
-            time.sleep(1)
+            time.sleep(2)
         except Exception as e:
             pytest.fail(f"Login failed: {e}")
 
@@ -63,7 +64,7 @@ class TestConceptsMode:
     VIDEO_NAME = 'Vocal Range Introduction'
 
     # Search for a concept video and optionally play it if found.
-    def test_search_and_play_video(self, driver, play_video=False):
+    def test_search_and_play_video(self, driver, play_video=True):
         # Search for the concept video
         self.concepts_mode_page.search_concept_video(self.VIDEO_NAME)
 
@@ -82,5 +83,13 @@ class TestConceptsMode:
         # If results are found, check the flag and play the video if required
         if play_video:
             self.concepts_mode_page.play_searched_video(self.VIDEO_NAME)
+            time.sleep(3)
         else:
             print(f"Video '{self.VIDEO_NAME}' found, but play_video flag is set to False.")
+
+    def test_video_actions(self, driver):
+
+        # Perform the tap action on the screen
+        tap_on_screen(driver)
+
+
