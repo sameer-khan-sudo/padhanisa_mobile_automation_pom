@@ -5,12 +5,13 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pages.base_class import BasePage
+from pages.base_class import BaseClass
 
 
-class ConceptsMode(BasePage):
+class ConceptsMode(BaseClass):
     CONCEPTS_MODE_TAB_LOCATOR = (AppiumBy.XPATH, '//android.widget.ImageView[contains(@content-desc,"Concepts")]')
-    SEARCH_BAR_ICON_LOCATOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
+    SEARCH_BAR_ICON_LOCATOR = (
+    AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
     # VIDEO_LIST_LOCATOR = (AppiumBy.XPATH,'/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]')
     # VIDEO_LIST_LOCATOR = (AppiumBy.XPATH,'/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View')
     SEARCH_INPUT_LOCATOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
@@ -25,12 +26,12 @@ class ConceptsMode(BasePage):
         # Perform click
         self.wait_and_click(*self.CONCEPTS_MODE_TAB_LOCATOR)
 
-
     # Scroll and get data in concept video listing
     def scroll_concept_video_list(self):
         time.sleep(1)
 
-        videos_element_locator = (AppiumBy.XPATH, "//android.view.View[1]//android.view.View[contains(@content-desc, ' ')]")
+        videos_element_locator = (
+        AppiumBy.XPATH, "//android.view.View[1]//android.view.View[contains(@content-desc, ' ')]")
         scroll_command = 'new UiScrollable(new UiSelector().className("android.view.View").instance(8)).scrollForward()'
 
         all_elements = set()
@@ -55,8 +56,6 @@ class ConceptsMode(BasePage):
         print(f"Total Count of Concepts Videos: {len(reports)}")
 
         return reports
-
-
 
     # Scroll and get data in global concept video listing
     # def scroll_global_search_video_list(self):
@@ -152,14 +151,15 @@ class ConceptsMode(BasePage):
     #     return reports
 
     # Search concept video
+
+    # Search concept video
     def search_concept_video(self, video_name):
         self.wait_and_click(*self.SEARCH_BAR_ICON_LOCATOR)
         self.wait_and_click(*self.SEARCH_INPUT_LOCATOR)
         self.enter_text(self.SEARCH_INPUT_LOCATOR, video_name)
         self.close_keyboard()
 
-
-
+    # Play the first searched video
     def play_searched_video(self, video_name):
         searched_video_locator = (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{video_name}")]')
         self.wait_and_click(*searched_video_locator)
