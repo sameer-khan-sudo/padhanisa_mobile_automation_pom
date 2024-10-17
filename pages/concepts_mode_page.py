@@ -158,9 +158,6 @@ class ConceptsMode(BasePage):
         self.enter_text(self.SEARCH_INPUT_LOCATOR, video_name)
         self.close_keyboard()
 
-        no_result_found_locator = (AppiumBy.XPATH, '//android.view.View[@content-desc="No Result Found"]')
-        search_result_locator = (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{video_name}")]')
-
 
 
     def play_searched_video(self, video_name):
