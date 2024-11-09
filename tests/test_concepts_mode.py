@@ -34,7 +34,7 @@ class TestConceptsMode:
     @pytest.mark.dependency(name="PROFILE", depends=["LOGIN"])
     def test_select_user_profile(self):
         try:
-            self.profile.select_profile('Tokio')
+            self.profile.select_profile('Sameer Khan')
         except Exception as e:
             pytest.fail(f"Profile selection failed: {e}")
 
@@ -91,5 +91,3 @@ class TestConceptsMode:
 
         # Perform the tap action on the screen
         tap_on_screen(driver)
-
-

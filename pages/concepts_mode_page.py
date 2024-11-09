@@ -2,8 +2,6 @@ import json
 import time
 
 from appium.webdriver.common.appiumby import AppiumBy
-from selenium.common import TimeoutException
-from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_class import BaseClass
 

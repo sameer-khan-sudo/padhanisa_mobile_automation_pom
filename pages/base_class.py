@@ -33,7 +33,7 @@ class BaseClass:
             element = WebDriverWait(self.driver, timeout).until(
                 EC.presence_of_element_located(locator)
             )
-            element.clear()
+            # element.clear()
             element.send_keys(text)
         except Exception as e:
             print(f"Error entering text in field ({by}, {value}): {e}")
@@ -46,3 +46,4 @@ class BaseClass:
     # Click 'Singing Classes' tab
     def select_class_module(self):
         self.wait_and_click(*self.SINGING_CLASSES)
+
