@@ -8,7 +8,7 @@ from conftest import driver  # Ensure this is defined in your conftest.py
 from pages.concepts_mode_page import ConceptsMode
 from pages.login_page import LoginPage
 from pages.profile_page import ProfilePage
-from utils.helpers import tap_on_screen
+from utils.helpers import tap_on_screen, get_passive_video_timer
 
 
 @pytest.mark.usefixtures("driver")
@@ -88,6 +88,13 @@ class TestConceptsMode:
             print(f"Video '{self.VIDEO_NAME}' found, but play_video flag is set to False.")
 
     def test_video_actions(self, driver):
+        for i in range(2):  # Loop twice
+            # Perform the tap action on the screen
+            tap_on_screen(driver)
+            # Call the helper function to process the video timer
+            get_passive_video_timer(driver)
 
-        # Perform the tap action on the screen
-        tap_on_screen(driver)
+
+
+
+

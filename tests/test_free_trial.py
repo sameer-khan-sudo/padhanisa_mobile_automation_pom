@@ -1,8 +1,7 @@
-import pytest
-from appium.webdriver.common.appiumby import AppiumBy
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import logging
+
+import pytest
+from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.create_profile_page import CreateProfile
 from pages.login_page import LoginPage

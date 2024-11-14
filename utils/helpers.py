@@ -1,5 +1,6 @@
 import random
 import subprocess
+import time
 
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
@@ -109,3 +110,42 @@ def verify_text_on_screen(driver, locators, expected_texts):
         print(f"An unexpected error occurred: {str(e)}")
         driver.save_screenshot("unexpected_error.png")
         raise
+
+def nudge(driver):
+    try:
+        nudge_locator = driver.find_element(
+            by=AppiumBy.XPATH,
+            value='//android.view.View[@content-desc="Start your signing journey"]'
+        )
+        assert nudge_locator.is_displayed(), "Nudge is not visible as expected."
+        print('Nudge visible!')
+
+        cross_button_locator = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR,
+                                                        value='new UiSelector().className("android.view.View").instance(9)')
+        cross_button_locator.click()
+        print('Nudge Dismissed!')
+    except Exception as e:
+        pytest.fail(f"Test failed due to an exception: {str(e)}")
+
+
+# Get the passive video timer and wait
+def get_passive_video_timer(driver):
+        # Locate the seekbar
+        element = driver.find_element(by=AppiumBy.XPATH,value="//android.view.View[contains(@content-desc, ':')]")
+
+        # Extract the `content-desc`
+        content_desc = element.get_attribute("content-desc")
+
+        # Split the `content-desc` to get the last time (end time of video)
+        print(content_desc)
+        last_time = content_desc.split('\n')[-1]
+        print("End time:", last_time)
+
+        # Convert the time (MM:SS) to seconds
+        minutes, seconds = map(int, last_time.split(':'))
+        total_seconds = minutes * 60 + seconds
+        print("Total time in seconds:", total_seconds)
+
+        # Use time.sleep for the total duration
+        print(f"Sleeping for {total_seconds} seconds...")
+        time.sleep(total_seconds)
