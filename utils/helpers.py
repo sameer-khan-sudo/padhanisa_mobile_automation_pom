@@ -113,6 +113,7 @@ def verify_text_on_screen(driver, locators, expected_texts):
         driver.save_screenshot("unexpected_error.png")
         raise
 
+# Nudge click
 def nudge(driver):
     try:
         nudge_locator = driver.find_element(
@@ -152,8 +153,8 @@ def get_passive_video_timer(driver):
         print(f"Sleeping for {total_seconds} seconds...")
         time.sleep(total_seconds)
 
-# # Helper function to get the expiry date formatted string
-# def get_formatted_expiry_date(days=14):
-#     current_date = datetime.now()
-#     expiry_date = current_date + timedelta(days=days)
-#     return expiry_date.strftime("%d %B %Y")
+# Helper function to get the expiry date formatted string
+def get_formatted_expiry_date(days):
+    current_date = datetime.now()
+    expiry_date = current_date + timedelta(days=days)
+    return expiry_date.strftime("%d %B %Y")

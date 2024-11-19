@@ -82,46 +82,51 @@ class TestFreeTrial:
     # Activate free trial plan
     def test_activate_free_trial_plan(self):
         try:
-            # Click on the Free Trial button
-            self.plan.wait_and_click(AppiumBy.ACCESSIBILITY_ID, "Free Trial")
-            logging.info("Clicked on the Free Trial button.")
 
             # Locators and expected text to verify
             locators = [
                 self.plan.GO_PREMIUM_HEADER_LOCATOR,
                 self.plan.FREE_TRIAL_BENEFITS_LOCATOR,
-                # self.plan.TRIAL_EXPIRY_MESSAGE_LOCATOR
             ]
             expected_texts = [
                 self.plan.EXPECTED_GO_PREMIUM_HEADER_TEXT,
                 self.plan.EXPECTED_FREE_TRIAL_BENEFITS_TEXT,
-                #                 self.plan.EXPECTED_TRIAL_EXPIRY_MESSAGE_TEXT,
             ]
 
-            # Verify the text on the screen
-            verify_text_on_screen(self.driver, locators, expected_texts)
-            logging.info("Verified the actual and expected text on the screen successfully.")
+            # Click on the Free Trial button
+            self.plan.wait_and_click(AppiumBy.ACCESSIBILITY_ID, "Free Trial")
+            logging.info("Clicked on the Free Trial button.")
+
 
             # Click on Free Trial field
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.FREE_TRIAL_FIELD_LOCATOR)
 
-            # Click on 'Continue' button
-            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.CONTINUE_BUTTON_LOCATOR)
-
-            # Locators and expected text to verify
-            locators = [
-                self.plan.TRIAL_EXPIRY_MESSAGE_LOCATOR
-            ]
-            expected_texts = [
-                self.plan.EXPECTED_TRIAL_EXPIRY_MESSAGE_TEXT
-            ]
 
             # Verify the success message and plan/trial expiry message
             verify_text_on_screen(self.driver, locators, expected_texts)
             logging.info("Verified the actual and expected text on the screen successfully.")
 
 
+            # Click on 'Continue' button
+            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.CONTINUE_BUTTON_LOCATOR)
+
+            # Locators and expected text to verify success message and trial expiry date
+            locators = [
+                self.plan.FREE_TRIAL_ACTIVATED_HEADER_LOCATOR,
+                self.plan.TRIAL_EXPIRY_MESSAGE_LOCATOR
+            ]
+            expected_texts = [
+                self.plan.EXPECTED_FREE_TRIAL_TEXT,
+                self.plan.EXPECTED_TRIAL_EXPIRY_MESSAGE_TEXT
+            ]
+            verify_text_on_screen(self.driver, locators, expected_texts)
+
+
+            # self.plan.extract_and_compare_expiry_date()
+
         except Exception as e:
             # Handle failures and provide meaningful messages
             logging.error(f"Error while activating free trial plan: {e}")
             pytest.fail(f"Failed to activate free trial plan: {e}")
+
+
