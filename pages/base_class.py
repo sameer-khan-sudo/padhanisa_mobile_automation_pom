@@ -7,12 +7,12 @@ class BaseClass:
         self.driver = driver
 
     # Locator for reuse
-    SKIP_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Skip")
-    SINGING_CLASSES = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("Singing Classes")')
+    LOCATOR_SKIP_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Skip")
+    LOCATOR_SINGING_CLASSES = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("Singing Classes")')
 
     # Click on 'Skip' button
     def click_skip(self):
-        self.wait_and_click(*self.SKIP_BUTTON)
+        self.wait_and_click(*self.LOCATOR_SKIP_BUTTON)
 
 
     # Wait for element and click on it
@@ -45,5 +45,5 @@ class BaseClass:
 
     # Click 'Singing Classes' tab
     def select_class_module(self):
-        self.wait_and_click(*self.SINGING_CLASSES)
+        self.wait_and_click(*self.LOCATOR_SINGING_CLASSES)
 

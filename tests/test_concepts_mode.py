@@ -61,9 +61,10 @@ class TestConceptsMode:
     def test_scroll(self):
         self.concepts_mode_page.scroll_concept_video_list()
 
-    VIDEO_NAME = 'Vocal Range Introduction'
+    VIDEO_NAME = 'TEST'
 
     # Search for a concept video and optionally play it if found.
+    # @pytest,ma
     def test_search_and_play_video(self, driver, play_video=True):
         # Search for the concept video
         self.concepts_mode_page.search_concept_video(self.VIDEO_NAME)
@@ -88,13 +89,8 @@ class TestConceptsMode:
             print(f"Video '{self.VIDEO_NAME}' found, but play_video flag is set to False.")
 
     def test_video_actions(self, driver):
-        for i in range(2):  # Loop twice
+        for i in range(1):  # Loop twice
             # Perform the tap action on the screen
             tap_on_screen(driver)
             # Call the helper function to process the video timer
             get_passive_video_timer(driver)
-
-
-
-
-

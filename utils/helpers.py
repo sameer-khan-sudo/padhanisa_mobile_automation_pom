@@ -1,6 +1,8 @@
 import random
 import subprocess
 import time
+from datetime import datetime, timedelta
+
 
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
@@ -149,3 +151,9 @@ def get_passive_video_timer(driver):
         # Use time.sleep for the total duration
         print(f"Sleeping for {total_seconds} seconds...")
         time.sleep(total_seconds)
+
+# # Helper function to get the expiry date formatted string
+# def get_formatted_expiry_date(days=14):
+#     current_date = datetime.now()
+#     expiry_date = current_date + timedelta(days=days)
+#     return expiry_date.strftime("%d %B %Y")

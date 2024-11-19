@@ -38,8 +38,9 @@ class LoginPage(BaseClass):
         self.click_get_otp()
 
     # Login with existing user
-    def exist_user_login(self):
-        phone_number = '9927484781'  # Hardcoded mobile number for existing user
+    def exist_user_login(self,phone_number):
+        self.wait_and_click(*self.SIGN_IN_BUTTON)
+        phone_number = phone_number  # Hardcoded mobile number for existing user
         self.enter_phone_number(phone_number)
         print(f'Mobile Number: {phone_number}')  # Use the existing number
         self.click_get_otp()

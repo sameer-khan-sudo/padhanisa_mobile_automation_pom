@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Profile creation completed!!">
+    <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Passive video timer wait!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/base_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/base_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/plan_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/plan_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/practice_mode_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/practice_mode_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_concepts_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_concepts_mode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_free_trial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_free_trial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_practice_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_practice_mode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/helpers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -292,7 +292,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731155511269</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Passive video timer wait!!">
+      <option name="closed" value="true" />
+      <created>1731585911688</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731585911688</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -303,6 +311,7 @@
     <MESSAGE value="Implement concept search video handling." />
     <MESSAGE value="Added login." />
     <MESSAGE value="Profile creation completed!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Profile creation completed!!" />
+    <MESSAGE value="Passive video timer wait!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Passive video timer wait!!" />
   </component>
 </project>
