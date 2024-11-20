@@ -1,10 +1,10 @@
 import logging
+
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 
 # Importing required classes and utilities
-from pages.base_class import BaseClass
 from pages.create_profile_page import CreateProfile
 from pages.login_page import LoginPage
 from pages.plan_page import PlanPage
@@ -28,7 +28,6 @@ class TestFreeTrial:
         self.wait = WebDriverWait(driver, 10)
 
     # Perform login with new user
-    @pytest.mark.skip
     @pytest.mark.dependency(name="LOGIN")
     def test_perform_login(self):
         try:
@@ -39,6 +38,7 @@ class TestFreeTrial:
             pytest.fail(f"Login failed: {e}")
 
     # perform login with an existing user
+    @pytest.mark.skip
     @pytest.mark.dependency(name="LOGIN")
     def test_perform_exist_user_login(self):
         try:
@@ -51,7 +51,7 @@ class TestFreeTrial:
             pytest.fail(f"Login failed: {e}")
 
     # Create a new user profile
-    @pytest.mark.skip
+    # @pytest.mark.skip
     def test_create_user_profile(self):
         try:
             logging.info("Starting profile creation...")
@@ -113,20 +113,33 @@ class TestFreeTrial:
             # Locators and expected text to verify success message and trial expiry date
             locators = [
                 self.plan.FREE_TRIAL_ACTIVATED_HEADER_LOCATOR,
+                self.plan.YOUR_TEXT_LOCATOR,
+                self.plan.DAYS_FREE_PREMIUM_LOCATOR,
+                self.plan.IS_NOW_ACTIVE_LOCATOR,
                 self.plan.TRIAL_EXPIRY_MESSAGE_LOCATOR
             ]
             expected_texts = [
                 self.plan.EXPECTED_FREE_TRIAL_TEXT,
+                self.plan.EXPECTED_YOUR_TEXT,
+                self.plan.EXPECTED_DAYS_FREE_PREMIUM_TEXT,
+                self.plan.EXPECTED_IS_NOW_ACTIVE_TEXT,
                 self.plan.EXPECTED_TRIAL_EXPIRY_MESSAGE_TEXT
             ]
             verify_text_on_screen(self.driver, locators, expected_texts)
-
-
-            # self.plan.extract_and_compare_expiry_date()
 
         except Exception as e:
             # Handle failures and provide meaningful messages
             logging.error(f"Error while activating free trial plan: {e}")
             pytest.fail(f"Failed to activate free trial plan: {e}")
+
+    # Click on Start Learning button
+    def test_click_start_learning(self):
+        try:
+            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.START_LEARNING_BUTTON_LOCATOR)
+            logging.info("Clicked on the 'Start Learning' button.")
+        except Exception as e:
+            # Handle failures and provide meaningful messages
+            logging.error(f"Error while clicking on 'Start Learning' button: {e}")
+            pytest.fail(f"Failed to click on 'Start Learning' button: {e}")
 
 

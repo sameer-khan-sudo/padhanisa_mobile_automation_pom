@@ -1,15 +1,12 @@
-
 from appium.webdriver.common.appiumby import AppiumBy
 from datetime import datetime, timedelta
-
 
 from pages.base_class import BaseClass
 from utils.helpers import get_formatted_expiry_date
 
 
 class PlanPage(BaseClass):
-
-    formatted_expiry_date = get_formatted_expiry_date(13)
+    formatted_expiry_date = get_formatted_expiry_date(14)
     print("Calculated expiry date: ", formatted_expiry_date)
 
     # Locators
@@ -26,14 +23,15 @@ class PlanPage(BaseClass):
         '//android.view.View[@content-desc="Enjoy All Premium Benefits With\n14 Days FREE Trial"]'
     )
     PREMIUM_BENEFITS_LOCATOR = (
-    AppiumBy.XPATH, '//android.view.View[@content-desc="Get Access To All Premium Benefits"]')
+        AppiumBy.XPATH, '//android.view.View[@content-desc="Get Access To All Premium Benefits"]')
 
-    FREE_TRIAL_ACTIVATED_HEADER_LOCATOR = (AppiumBy.XPATH,'//android.view.View[@content-desc="Free Trial Activated"]')
-    YOUR_TEXT_LOCATOR = (AppiumBy.XPATH,'android.view.View[@content-desc="Your"]')
-    DAYS_FREE_PREMIUM_LOCATOR = (AppiumBy.XPATH,'android.view.View[@content-desc="14 Days Free Premium"]')
-    IS_NOW_ACTIVE_LOCATOR = (AppiumBy.XPATH,'android.view.View[@content-desc="is now active."]')
+    FREE_TRIAL_ACTIVATED_HEADER_LOCATOR = (AppiumBy.XPATH, '//android.view.View[@content-desc="Free Trial Activated"]')
+    YOUR_TEXT_LOCATOR = (AppiumBy.XPATH, '//android.view.View[@content-desc="Your"]')
+    DAYS_FREE_PREMIUM_LOCATOR = (AppiumBy.XPATH, '//android.view.View[@content-desc="14 Days Free Premium"]')
+    IS_NOW_ACTIVE_LOCATOR = (AppiumBy.XPATH, '//android.view.View[@content-desc="is now active."]')
 
-    TRIAL_EXPIRY_MESSAGE_LOCATOR = (AppiumBy.XPATH,f'//android.view.View[@content-desc="Enjoy unlimited access to all Premium benefits. Plan expiry: {formatted_expiry_date}"]')
+    TRIAL_EXPIRY_MESSAGE_LOCATOR = (AppiumBy.XPATH,
+                                    f'//android.view.View[@content-desc="Enjoy unlimited access to all Premium benefits. Plan expiry: {formatted_expiry_date}"]')
 
     # Expected Text
     EXPECTED_GO_PREMIUM_HEADER_TEXT = 'Go Premium'
@@ -45,25 +43,5 @@ class PlanPage(BaseClass):
     EXPECTED_DAYS_FREE_PREMIUM_TEXT = '14 Days Free Premium'
     EXPECTED_IS_NOW_ACTIVE_TEXT = 'is now active.'
     EXPECTED_TRIAL_EXPIRY_MESSAGE_TEXT = f"Enjoy unlimited access to all Premium benefits. Plan expiry: {formatted_expiry_date}"
-
-    # Extract expiry date from the message
-    @staticmethod
-    def extract_and_compare_expiry_date():
-        extracted_text = PlanPage.EXPECTED_TRIAL_EXPIRY_MESSAGE_TEXT.split(' ')
-        last_index = ' '.join(extracted_text[-3:])  # Extract the last three words (date)
-        print("Extracted expiry date from message: ", last_index)
-
-        # Compare the extracted date with the calculated expiry date
-        # if last_index == PlanPage.formatted_expiry_date:
-        #     print("Match found: The extracted date matches the current date + 14 days.")
-        # else:
-        #     print(f"Mismatch: Expected '{PlanPage.formatted_expiry_date}', but found '{last_index}'.")
-
-
-
-
-
-
-
-
+    COMBINED_MESSAGE_TEXT = 'Your 14 Days Free Premium is now active.'
 

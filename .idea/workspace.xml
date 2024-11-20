@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Free trial activation.">
-      <change afterPath="$PROJECT_DIR$/tests/index.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/plan_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/plan_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_free_trial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_free_trial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/helpers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,22 +52,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.Python tests in page_profile_page.py.executor": "Run",
-    "Python tests.Python tests in test_concepts_mode.py.executor": "Run",
-    "Python tests.Python tests in test_free_trial.py.executor": "Run",
-    "Python tests.Python tests in test_practice_mode.py.executor": "Run",
-    "Python.base_class.executor": "Run",
-    "Python.create_profile_page.executor": "Run",
-    "Python.index.executor": "Run",
-    "Python.plan_page.executor": "Run",
-    "Python.practice_mode_page.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests in page_profile_page.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_concepts_mode.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_free_trial.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_practice_mode.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.base_class.executor&quot;: &quot;Run&quot;,
+    &quot;Python.create_profile_page.executor&quot;: &quot;Run&quot;,
+    &quot;Python.index.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plan_page.executor&quot;: &quot;Run&quot;,
+    &quot;Python.practice_mode_page.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\app_automation" />
@@ -308,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732012047451</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Free trial activation.">
+      <option name="closed" value="true" />
+      <created>1732021822255</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732021822255</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
