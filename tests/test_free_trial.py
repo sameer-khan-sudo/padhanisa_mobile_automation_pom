@@ -145,5 +145,3 @@ class TestFreeTrial:
             # Handle failures and provide meaningful messages
             logging.error(f"Error while clicking on 'Start Learning' button: {e}")
             pytest.fail(f"Failed to click on 'Start Learning' button: {e}")
-
-
