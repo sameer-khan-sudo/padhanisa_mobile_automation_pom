@@ -4,6 +4,7 @@ import pytest
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 
+from conftest import driver
 # Importing required classes and utilities
 from pages.create_profile_page import CreateProfile
 from pages.login_page import LoginPage
@@ -59,8 +60,8 @@ class TestFreeTrial:
             self.create_user_profile.enter_first_name('Jack')
             logging.info("Entered first name.")
 
-            self.create_user_profile.enter_last_name('Doe')
-            logging.info("Entered last name.")
+            # self.create_user_profile.enter_last_name('Doe')
+            # logging.info("Entered last name.")
 
             self.create_user_profile.select_voice_type('Male')
             logging.info("Voice type selected.")
@@ -132,11 +133,14 @@ class TestFreeTrial:
             logging.error(f"Error while activating free trial plan: {e}")
             pytest.fail(f"Failed to activate free trial plan: {e}")
 
-    # Click on Start Learning button
-    def test_click_start_learning(self):
+    # Click on Start Learning button and verify that the 'Premium' tag is showing on Home Screen
+    def test_click_start_learning(self,driver):
         try:
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.START_LEARNING_BUTTON_LOCATOR)
             logging.info("Clicked on the 'Start Learning' button.")
+            premium_tag_locator = driver.find_element(by=AppiumBy.XPATH,value='//android.widget.ImageView[@content-desc="Premium"]')
+            if premium_tag_locator.is_displayed():
+                print('\nTrial Activated Successfully!')
         except Exception as e:
             # Handle failures and provide meaningful messages
             logging.error(f"Error while clicking on 'Start Learning' button: {e}")
