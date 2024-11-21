@@ -118,7 +118,7 @@ class TestFreeTrial:
             logging.error(f"Error while activating free trial plan: {e}")
             pytest.fail(f"Failed to activate free trial plan: {e}")
 
-    # Test for clicking on Start Learning and verifying the Premium tag
+    # Test for clicking on Start Learning and verifying the Premium tag on Home Screen
     def test_click_start_learning(self):
         """Click on 'Start Learning' button and verify 'Premium' tag."""
         try:
