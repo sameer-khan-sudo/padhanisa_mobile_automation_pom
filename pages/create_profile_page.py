@@ -14,7 +14,7 @@ class CreateProfile(BaseClass):
     LAST_NAME_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText").instance(1)')
     AGE_DROPDOWN_LOCATOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Select")')
     EMAIL_ID_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
-    CONTINUE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().description("Continue")')
+    CONTINUE_BUTTON = (AppiumBy.XPATH,'//android.widget.Button[@content-desc="Continue"]')
 
     def enter_first_name(self, first_name):
         try:

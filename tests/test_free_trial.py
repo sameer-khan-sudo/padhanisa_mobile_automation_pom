@@ -1,11 +1,11 @@
 import logging
+from logging import raiseExceptions
 
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 
 from conftest import driver
-# Importing required classes and utilities
 from pages.create_profile_page import CreateProfile
 from pages.login_page import LoginPage
 from pages.plan_page import PlanPage
@@ -15,12 +15,14 @@ from utils.helpers import scroll_down, verify_text_on_screen
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
+# Define user type
+USER_TYPE = 'NEW'
 
 @pytest.mark.usefixtures("driver")
 class TestFreeTrial:
     @pytest.fixture(autouse=True)
     def setup(self, driver):
-        # Setup for initializing driver and page objects
+        """Setup for initializing driver and page objects."""
         self.driver = driver
         self.login = LoginPage(driver)
         self.create_user_profile = CreateProfile(driver)
@@ -28,63 +30,57 @@ class TestFreeTrial:
         self.profile = ProfilePage(driver)
         self.wait = WebDriverWait(driver, 10)
 
-    # Perform login with new user
-    @pytest.mark.dependency(name="LOGIN")
-    def test_perform_login(self):
-        try:
-            self.login.click_sign_in()
-            self.login.perform_login()
-            logging.info("Login successful.")
-        except Exception as e:
-            pytest.fail(f"Login failed: {e}")
-
-    # perform login with an existing user
-    @pytest.mark.skip
-    @pytest.mark.dependency(name="LOGIN")
+    # Test for existing user login
+    @pytest.mark.skipif(USER_TYPE != 'EXIST', reason="Skipped because USER_TYPE is not 'EXIST'")
     def test_perform_exist_user_login(self):
+        """Login with an existing user and select a profile."""
         try:
+            logging.info("Attempting login with an existing user.")
             self.login.exist_user_login('9412856057')
             logging.info("Login with existing user successful.")
 
             # Select profile
             self.profile.select_profile('Jack')
+            logging.info("Profile selection successful.")
+
         except Exception as e:
             pytest.fail(f"Login failed: {e}")
 
-    # Create a new user profile
-    # @pytest.mark.skip
-    def test_create_user_profile(self):
+    # Test for new user login and profile creation
+    @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'NEW'")
+    def test_login_and_create_user_profile(self):
+        """Login as a new user and create a user profile."""
         try:
-            logging.info("Starting profile creation...")
+            logging.info("Starting login process...")
+            self.login.click_sign_in()
+            self.login.perform_login()
+            logging.info("Login successful.")
 
+            # Create User Profile
             self.create_user_profile.enter_first_name('Jack')
             logging.info("Entered first name.")
-
-            # self.create_user_profile.enter_last_name('Doe')
-            # logging.info("Entered last name.")
-
             self.create_user_profile.select_voice_type('Male')
             logging.info("Voice type selected.")
 
             scroll_down(self.driver)
             logging.info("Scrolled down the page.")
-
             self.create_user_profile.select_age('16 - 25')
             logging.info("Age selected.")
 
             self.create_user_profile.select_skill_level('I Am A Singer')
             logging.info("Skill level selected.")
-
             self.create_user_profile.click_continue_button()
             logging.info("Clicked on Continue button.")
         except Exception as e:
-            pytest.fail(f"Profile creation failed: {e}")
+            pytest.fail(f"Test failed: {e}")
 
-    # Activate free trial plan
+    # Test for activating free trial plan
     def test_activate_free_trial_plan(self):
+        """Activate the free trial plan and verify success."""
         try:
 
-            # Locators and expected text to verify
+            self.plan.wait_and_click(AppiumBy.ACCESSIBILITY_ID, "Free Trial")
+            logging.info("Clicked on the Free Trial button.")
             locators = [
                 self.plan.GO_PREMIUM_HEADER_LOCATOR,
                 self.plan.FREE_TRIAL_BENEFITS_LOCATOR,
@@ -94,24 +90,14 @@ class TestFreeTrial:
                 self.plan.EXPECTED_FREE_TRIAL_BENEFITS_TEXT,
             ]
 
-            # Click on the Free Trial button
-            self.plan.wait_and_click(AppiumBy.ACCESSIBILITY_ID, "Free Trial")
-            logging.info("Clicked on the Free Trial button.")
 
-
-            # Click on Free Trial field
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.FREE_TRIAL_FIELD_LOCATOR)
 
-
-            # Verify the success message and plan/trial expiry message
             verify_text_on_screen(self.driver, locators, expected_texts)
-            logging.info("Verified the actual and expected text on the screen successfully.")
+            logging.info("Verified texts on the screen successfully.")
 
-
-            # Click on 'Continue' button
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.CONTINUE_BUTTON_LOCATOR)
 
-            # Locators and expected text to verify success message and trial expiry date
             locators = [
                 self.plan.FREE_TRIAL_ACTIVATED_HEADER_LOCATOR,
                 self.plan.YOUR_TEXT_LOCATOR,
@@ -127,21 +113,21 @@ class TestFreeTrial:
                 self.plan.EXPECTED_TRIAL_EXPIRY_MESSAGE_TEXT
             ]
             verify_text_on_screen(self.driver, locators, expected_texts)
-
+            logging.info("Successfully verified trial activation details.")
         except Exception as e:
-            # Handle failures and provide meaningful messages
             logging.error(f"Error while activating free trial plan: {e}")
             pytest.fail(f"Failed to activate free trial plan: {e}")
 
-    # Click on Start Learning button and verify that the 'Premium' tag is showing on Home Screen
-    def test_click_start_learning(self,driver):
+    # Test for clicking on Start Learning and verifying the Premium tag
+    def test_click_start_learning(self):
+        """Click on 'Start Learning' button and verify 'Premium' tag."""
         try:
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.START_LEARNING_BUTTON_LOCATOR)
             logging.info("Clicked on the 'Start Learning' button.")
-            premium_tag_locator = driver.find_element(by=AppiumBy.XPATH,value='//android.widget.ImageView[@content-desc="Premium"]')
+
+            premium_tag_locator = self.driver.find_element(AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Premium"]')
             if premium_tag_locator.is_displayed():
-                print('\nTrial Activated Successfully!')
+                logging.info("Trial Activated Successfully!")
         except Exception as e:
-            # Handle failures and provide meaningful messages
             logging.error(f"Error while clicking on 'Start Learning' button: {e}")
             pytest.fail(f"Failed to click on 'Start Learning' button: {e}")

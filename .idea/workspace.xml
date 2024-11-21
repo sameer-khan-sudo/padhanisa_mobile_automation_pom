@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Free trial activation.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/create_profile_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/create_profile_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_free_trial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_free_trial.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -321,7 +322,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732098291481</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Free trial activation.">
+      <option name="closed" value="true" />
+      <created>1732101401330</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732101401330</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Free trial activation.">
+      <option name="closed" value="true" />
+      <created>1732101468290</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732101468290</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
