@@ -69,7 +69,6 @@ class TestFreeTrial:
     def test_redirect_plan_page(self):
         self.profile.redirect_plan_page()
 
-
     # Select 'Monthly Plan'
     def test_select_monthly_plan(self,driver):
         try:
@@ -102,6 +101,7 @@ class TestFreeTrial:
         except Exception as e:
             logging.error(f"Error while clicking on Pay button: {e}")
 
+    # Make payment using RazorPay
     def test_make_payment(self, driver):
         try:
             # Initialize WebDriverWait with the driver and timeout
