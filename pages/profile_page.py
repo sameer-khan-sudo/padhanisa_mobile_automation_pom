@@ -5,6 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 def get_first_letter(name):
     PROFILE_NAME = name
+    print(PROFILE_NAME[0])
     return PROFILE_NAME[0]
 
 

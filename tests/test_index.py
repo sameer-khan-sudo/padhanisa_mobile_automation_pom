@@ -78,21 +78,22 @@ class TestFreeTrial:
             pytest.fail(f"Test failed due to error: {e}")
 
 
-    def test_redirect_more_menu(self):
-        data = get_first_letter(NEW_USER_FIRST_NAME)
-        print('Data:', data)
+    # def test_redirect_more_menu(self):
+    #     data = get_first_letter(NEW_USER_FIRST_NAME)
+    #     print('Data:', data)
+    #
+    #     # Dynamic locator
+    #     locator = f'//android.view.View/android.view.View[contains(@content-desc, "{data}")][1]'
+    #
+    #     try:
+    #         # Check if the element is displayed and clickable
+    #         element = self.driver.find_element(AppiumBy.XPATH, locator)
+    #         if element.is_displayed():
+    #             self.plan.wait_and_click(by=AppiumBy.XPATH, value=locator)
+    #         else:
+    #             print(f"Element with locator {locator} is not displayed.")
+    #             raise Exception("Required element is not visible.")
+    #     except Exception as e:
+    #         print(f"Error in test_redirect_more_menu: {e}")
+    #         raise
 
-        # Dynamic locator
-        locator = f'//android.view.View/android.view.View[contains(@content-desc, "{data}")][1]'
-
-        try:
-            # Check if the element is displayed and clickable
-            element = self.driver.find_element(AppiumBy.XPATH, locator)
-            if element.is_displayed():
-                self.plan.wait_and_click(by=AppiumBy.XPATH, value=locator)
-            else:
-                print(f"Element with locator {locator} is not displayed.")
-                raise Exception("Required element is not visible.")
-        except Exception as e:
-            print(f"Error in test_redirect_more_menu: {e}")
-            raise

@@ -14,6 +14,8 @@ from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from pages.profile_page import get_first_letter
+
 
 # Get the Android version
 def get_android_version():
@@ -199,3 +201,4 @@ def get_formatted_expiry_date(days):
     current_date = datetime.now()
     expiry_date = current_date + timedelta(days=days)
     return expiry_date.strftime("%d %B %Y")
+
