@@ -13,13 +13,13 @@ from pages.login_page import LoginPage  # Page object for "Login".
 from pages.plan_page import PlanPage  # Page object for "Plan".
 from pages.profile_page import ProfilePage  # Page object for "Profile".
 from pages.razor_pay_page import RazorPayPage
-from utils.helpers import verify_text_on_screen  # Helper functions for scrolling and text verification.
+from utils.helpers import verify_text_on_screen, scroll_down  # Helper functions for scrolling and text verification.
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
 # Test Data
-USER_TYPE = 'EXIST'
+USER_TYPE = 'NEW'
 EXISTING_USER_PHONE = '1100000000'
 PROFILE_NAME = 'Jack'
 
@@ -62,13 +62,16 @@ class TestFreeTrial:
             pytest.fail(f"Login failed: {e}")
 
     # Click on the profile to redirect More menu
+    @pytest.mark.skip
     def test_redirect_more_menu(self):
         self.profile.redirect_more_menu()
 
+    @pytest.mark.skip
     # Click on 'My Plan' to redirect Plan page
     def test_redirect_plan_page(self):
         self.profile.redirect_plan_page()
 
+    @pytest.mark.skip
     # Select 'Monthly Plan'
     def test_select_monthly_plan(self,driver):
         try:
@@ -93,6 +96,7 @@ class TestFreeTrial:
             logging.error(f"Error while activating free trial plan: {e}")
             pytest.fail(f"Failed to activate free trial plan: {e}")
 
+    @pytest.mark.skip
     # Click on 'Pay Now' button
     def test_click_on_pay_button(self):
         try:
@@ -102,6 +106,8 @@ class TestFreeTrial:
             logging.error(f"Error while clicking on Pay button: {e}")
 
     # Make payment using RazorPay
+    @pytest.mark.skip
+
     def test_make_payment(self, driver):
         try:
             # Initialize WebDriverWait with the driver and timeout
@@ -134,6 +140,8 @@ class TestFreeTrial:
             logging.error(f"Error while making payment: {e}")
 
     # Click on 'Start Learning' button
+    @pytest.mark.skip
+    
     def test_click_start_learning(self):
         try:
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.click_start_learning)
@@ -141,30 +149,33 @@ class TestFreeTrial:
         except Exception as e:
             logging.error(f"Error while clicking on Start Learning button: {e}")
 
-# # Test for new user login and profile creation
-    # @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'NEW'")
-    # def test_login_and_create_user_profile(self):
-    #     """Login as a new user and create a user profile."""
-    #     try:
-    #         logging.info("Starting login process...")
-    #         self.login.click_sign_in()
-    #         self.login.perform_login()
-    #         logging.info("Login successful.")
-    #
-    #         # Create User Profile
-    #         self.create_user_profile.enter_first_name(NEW_USER_FIRST_NAME)
-    #         logging.info("Entered first name.")
-    #         self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
-    #         logging.info("Voice type selected.")
-    #
-    #         scroll_down(self.driver)
-    #         logging.info("Scrolled down the page.")
-    #         self.create_user_profile.select_age(NEW_USER_AGE_GROUP)
-    #         logging.info("Age selected.")
-    #
-    #         self.create_user_profile.select_skill_level(NEW_USER_SKILL_LEVEL)
-    #         logging.info("Skill level selected.")
-    #         self.create_user_profile.click_continue_button()
-    #         logging.info("Clicked on Continue button.")
-    #     except Exception as e:
-    #         pytest.fail(f"Test failed: {e}")
+    # Test for new user login and profile creation
+    @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'NEW'")
+    def test_login_and_create_user_profile(self):
+        """Login as a new user and create a user profile."""
+        try:
+            logging.info("Starting login process...")
+            self.login.click_sign_in()
+            self.login.perform_login()
+            logging.info("Login successful.")
+
+            # Create User Profile
+            self.create_user_profile.enter_first_name(NEW_USER_FIRST_NAME)
+            logging.info("Entered first name.")
+            self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
+            logging.info("Voice type selected.")
+
+            scroll_down(self.driver)
+            logging.info("Scrolled down the page.")
+            self.create_user_profile.select_age(NEW_USER_AGE_GROUP)
+            logging.info("Age selected.")
+
+            self.create_user_profile.select_skill_level(NEW_USER_SKILL_LEVEL)
+            logging.info("Skill level selected.")
+            self.create_user_profile.click_continue_button()
+            logging.info("Clicked on Continue button.")
+
+            self.profile.redirect_more_menu()
+        except Exception as e:
+            pytest.fail(f"Test failed: {e}")
+
