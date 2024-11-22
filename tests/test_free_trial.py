@@ -90,7 +90,6 @@ class TestFreeTrial:
                 self.plan.EXPECTED_FREE_TRIAL_BENEFITS_TEXT,
             ]
 
-
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.FREE_TRIAL_FIELD_LOCATOR)
 
             verify_text_on_screen(self.driver, locators, expected_texts)
