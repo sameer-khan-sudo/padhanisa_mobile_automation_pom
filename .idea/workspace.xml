@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Monthly plan activation.">
+      <change afterPath="$PROJECT_DIR$/tests/test_index.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/profile_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/profile_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/index.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_purchase_monthly_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_purchase_monthly_plan.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +59,7 @@
     "Python tests.Python tests in page_profile_page.py.executor": "Run",
     "Python tests.Python tests in test_concepts_mode.py.executor": "Run",
     "Python tests.Python tests in test_free_trial.py.executor": "Run",
+    "Python tests.Python tests in test_index.py.executor": "Run",
     "Python tests.Python tests in test_practice_mode.py.executor": "Run",
     "Python tests.Python tests in test_purchase_monthly_plan.py.executor": "Run",
     "Python.base_class.executor": "Run",
@@ -370,7 +374,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732267391773</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Monthly plan activation.">
+      <option name="closed" value="true" />
+      <created>1732270723234</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1732270723234</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

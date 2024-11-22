@@ -1,6 +1,5 @@
 import logging  # For logging test execution details.
 import time
-from pydoc import plain
 
 import pytest  # For writing and managing tests.
 from appium.webdriver.common.appiumby import AppiumBy  # Appium-specific locators.
@@ -11,7 +10,7 @@ from conftest import driver  # Shared driver setup.
 from pages.create_profile_page import CreateProfile  # Page object for "Create Profile".
 from pages.login_page import LoginPage  # Page object for "Login".
 from pages.plan_page import PlanPage  # Page object for "Plan".
-from pages.profile_page import ProfilePage  # Page object for "Profile".
+from pages.profile_page import ProfilePage, get_first_letter  # Page object for "Profile".
 from pages.razor_pay_page import RazorPayPage
 from utils.helpers import verify_text_on_screen, scroll_down  # Helper functions for scrolling and text verification.
 
@@ -107,7 +106,6 @@ class TestFreeTrial:
 
     # Make payment using RazorPay
     @pytest.mark.skip
-
     def test_make_payment(self, driver):
         try:
             # Initialize WebDriverWait with the driver and timeout
@@ -141,7 +139,6 @@ class TestFreeTrial:
 
     # Click on 'Start Learning' button
     @pytest.mark.skip
-    
     def test_click_start_learning(self):
         try:
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.click_start_learning)
@@ -152,7 +149,6 @@ class TestFreeTrial:
     # Test for new user login and profile creation
     @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'NEW'")
     def test_login_and_create_user_profile(self):
-        """Login as a new user and create a user profile."""
         try:
             logging.info("Starting login process...")
             self.login.click_sign_in()
@@ -162,6 +158,27 @@ class TestFreeTrial:
             # Create User Profile
             self.create_user_profile.enter_first_name(NEW_USER_FIRST_NAME)
             logging.info("Entered first name.")
+
+            # Debug NEW_USER_FIRST_NAME
+            print(f"NEW_USER_FIRST_NAME: {NEW_USER_FIRST_NAME}")
+
+            # Retrieve the text of the element
+            txt_element = self.wait.until(
+                EC.presence_of_element_located((AppiumBy.XPATH, self.profile.MORE_MENU_TEXT_LOCATOR))
+            )
+
+            txt = txt_element.get_attribute('content-desc')  # Extract text from the web element
+
+            # Debug retrieved content-desc
+            print(f"Retrieved content-desc: {txt}")
+
+            # Get the first letter of the text
+            first_letter = get_first_letter(txt)
+            print(f"First letter from content-desc: {first_letter}")
+
+            # Validate first letter
+            assert first_letter == NEW_USER_FIRST_NAME[0], "Mismatch in first letter"
+
             self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
             logging.info("Voice type selected.")
 
@@ -175,7 +192,5 @@ class TestFreeTrial:
             self.create_user_profile.click_continue_button()
             logging.info("Clicked on Continue button.")
 
-            self.profile.redirect_more_menu()
         except Exception as e:
             pytest.fail(f"Test failed: {e}")
-

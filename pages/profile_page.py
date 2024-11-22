@@ -3,9 +3,14 @@ from pages.base_class import BaseClass
 from selenium.common.exceptions import NoSuchElementException
 
 
-class ProfilePage(BaseClass):
+def get_first_letter(name):
+    PROFILE_NAME = name
+    return PROFILE_NAME[0]
 
-    MORE_MENU_LOCATOR = 'new UiSelector().className("android.widget.ImageView").instance(2)'
+
+class ProfilePage(BaseClass):
+    MORE_MENU_PROFILE_LOCATOR = 'new UiSelector().className("android.widget.ImageView").instance(2)'
+    MORE_MENU_TEXT_LOCATOR = f'//android.view.View[@content-desc="{get_first_letter}"]'
     MY_PLAN_LOCATOR = '//android.widget.ImageView[@content-desc="My Plan"]'
 
     def select_profile(self, profile_name):
@@ -22,10 +27,13 @@ class ProfilePage(BaseClass):
             print(f'Profile with the name {profile_name} is not found. Stopping test execution.')
             raise Exception(f'Profile with the name {profile_name} is not found. Test stopped.')
 
-    def redirect_more_menu(self):
+    def redirect_more_menu(self,locator):
         # Click on the profile to redirect More menu
-        self.wait_and_click(by=AppiumBy.ANDROID_UIAUTOMATOR, value=self.MORE_MENU_LOCATOR)
+        self.wait_and_click(by=AppiumBy.XPATH,value= f'//android.view.View[@content-desc="{locator}"]')
+        # self.wait_and_click(by=AppiumBy.ANDROID_UIAUTOMATOR, value=self.MORE_MENU_LOCATOR)
 
     def redirect_plan_page(self):
         # Click on the More menu to redirect Plan page
         self.wait_and_click(by=AppiumBy.XPATH, value=self.MY_PLAN_LOCATOR)
+
+
