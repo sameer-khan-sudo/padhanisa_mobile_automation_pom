@@ -28,12 +28,13 @@ class ProfilePage(BaseClass):
             print(f'Profile with the name {profile_name} is not found. Stopping test execution.')
             raise Exception(f'Profile with the name {profile_name} is not found. Test stopped.')
 
+    # Click on the profile to redirect More menu
     def redirect_more_menu(self,locator):
-        # Click on the profile to redirect More menu
         self.wait_and_click(by=AppiumBy.XPATH,value= f'//android.view.View[@content-desc="{locator}"]')
         # self.wait_and_click(by=AppiumBy.ANDROID_UIAUTOMATOR, value=self.MORE_MENU_LOCATOR)
 
-    def redirect_plan_page(self):
+    # Select My Plan option
+    def select_my_plan(self):
         # Click on the More menu to redirect Plan page
         self.wait_and_click(by=AppiumBy.XPATH, value=self.MY_PLAN_LOCATOR)
 

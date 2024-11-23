@@ -19,9 +19,9 @@ from utils.helpers import verify_text_on_screen, scroll_down
 logging.basicConfig(level=logging.INFO)
 
 # Test Data
-USER_TYPE = 'NEW'
-EXISTING_USER_PHONE = '1100000000'
-PROFILE_NAME = 'Jack'
+USER_TYPE = 'EXIST'
+EXISTING_USER_PHONE = '6000000000'
+PROFILE_NAME = 'Deadpool'
 
 NEW_USER_FIRST_NAME = 'SAM'
 NEW_USER_VOICE_TYPE = 'Male'
@@ -61,7 +61,7 @@ class TestFreeTrial:
             self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
             logging.info(f"Voice type selected: {NEW_USER_VOICE_TYPE}")
 
-            scroll_down(self.driver)
+            scroll_down(self)
             logging.info("Scrolled down the page.")
 
             self.create_user_profile.select_age(NEW_USER_AGE_GROUP)
@@ -77,23 +77,40 @@ class TestFreeTrial:
             logging.error(f"An error occurred during profile creation: {e}")
             pytest.fail(f"Test failed due to error: {e}")
 
+    # Login with an existing user
+    @pytest.mark.skipif(USER_TYPE != 'EXIST', reason="Skipped because USER_TYPE is not 'EXIST'")
+    def test_perform_exist_user_login(self):
+        """Login with an existing user and select a profile."""
+        try:
+            logging.info("Attempting login with an existing user.")
+            self.login.exist_user_login(EXISTING_USER_PHONE)
+            logging.info("Login with existing user successful.")
 
-    # def test_redirect_more_menu(self):
-    #     data = get_first_letter(NEW_USER_FIRST_NAME)
-    #     print('Data:', data)
-    #
-    #     # Dynamic locator
-    #     locator = f'//android.view.View/android.view.View[contains(@content-desc, "{data}")][1]'
-    #
-    #     try:
-    #         # Check if the element is displayed and clickable
-    #         element = self.driver.find_element(AppiumBy.XPATH, locator)
-    #         if element.is_displayed():
-    #             self.plan.wait_and_click(by=AppiumBy.XPATH, value=locator)
-    #         else:
-    #             print(f"Element with locator {locator} is not displayed.")
-    #             raise Exception("Required element is not visible.")
-    #     except Exception as e:
-    #         print(f"Error in test_redirect_more_menu: {e}")
-    #         raise
+            # Select profile
+            self.profile.select_profile(PROFILE_NAME)
+            logging.info("Profile selection successful.")
+            time.sleep(1)
+
+        except Exception as e:
+            pytest.fail(f"Login failed: {e}")
+
+    # Click on profile image to redirect to More menu
+    def test_redirect_more_menu(self):
+        data = get_first_letter(PROFILE_NAME)
+        print('Data:', data)
+
+        # Dynamic locator
+        locator = f'//android.view.View/android.view.View[contains(@content-desc, "{data}")][1]'
+
+        try:
+            # Check if the element is displayed and clickable
+            element = self.driver.find_element(AppiumBy.XPATH, locator)
+            if element.is_displayed():
+                self.plan.wait_and_click(by=AppiumBy.XPATH, value=locator)
+            else:
+                print(f"Element with locator {locator} is not displayed.")
+                raise Exception("Required element is not visible.")
+        except Exception as e:
+            print(f"Error in test_redirect_more_menu: {e}")
+            raise
 
