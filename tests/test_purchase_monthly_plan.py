@@ -18,7 +18,7 @@ from utils.helpers import verify_text_on_screen, scroll_down  # Helper functions
 logging.basicConfig(level=logging.INFO)
 
 # Test Data
-USER_TYPE = 'NEW'
+USER_TYPE = 'EXIST'
 EXISTING_USER_PHONE = '1100000000'
 PROFILE_NAME = 'Jack'
 
@@ -61,9 +61,9 @@ class TestFreeTrial:
             pytest.fail(f"Login failed: {e}")
 
     # Click on the profile to redirect More menu
-    @pytest.mark.skip
+    # @pytest.mark.skip
     def test_redirect_more_menu(self):
-        self.profile.redirect_more_menu()
+        self.profile.redirect_more_menu(PROFILE_NAME)
 
     @pytest.mark.skip
     # Click on 'My Plan' to redirect Plan page

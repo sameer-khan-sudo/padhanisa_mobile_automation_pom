@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Monthly plan activation.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/profile_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/profile_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_index.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_purchase_monthly_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_purchase_monthly_plan.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -389,6 +391,17 @@
     </task>
     <option name="localTasksCounter" value="25" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Setup project.." />

@@ -19,7 +19,9 @@ from utils.helpers import verify_text_on_screen, scroll_down
 logging.basicConfig(level=logging.INFO)
 
 # Test Data
-USER_TYPE = 'EXIST'
+# USER_TYPE = 'EXIST'
+USER_TYPE = 'NEW'
+
 EXISTING_USER_PHONE = '6000000000'
 PROFILE_NAME = 'Deadpool'
 
@@ -61,7 +63,7 @@ class TestFreeTrial:
             self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
             logging.info(f"Voice type selected: {NEW_USER_VOICE_TYPE}")
 
-            scroll_down(self)
+            scroll_down(self.driver)
             logging.info("Scrolled down the page.")
 
             self.create_user_profile.select_age(NEW_USER_AGE_GROUP)
@@ -96,21 +98,7 @@ class TestFreeTrial:
 
     # Click on profile image to redirect to More menu
     def test_redirect_more_menu(self):
-        data = get_first_letter(PROFILE_NAME)
-        print('Data:', data)
-
-        # Dynamic locator
-        locator = f'//android.view.View/android.view.View[contains(@content-desc, "{data}")][1]'
-
-        try:
-            # Check if the element is displayed and clickable
-            element = self.driver.find_element(AppiumBy.XPATH, locator)
-            if element.is_displayed():
-                self.plan.wait_and_click(by=AppiumBy.XPATH, value=locator)
-            else:
-                print(f"Element with locator {locator} is not displayed.")
-                raise Exception("Required element is not visible.")
-        except Exception as e:
-            print(f"Error in test_redirect_more_menu: {e}")
-            raise
+        """
+        Test case for redirecting to the 'More Menu'.
+        """
 
