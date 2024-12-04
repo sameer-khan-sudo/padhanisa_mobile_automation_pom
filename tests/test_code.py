@@ -98,7 +98,6 @@ class TestFreeTrial:
             pytest.fail(f"Test failed: {e}")
 
     # Redirect More section / Click on Profile icon
-    # Redirect More section / Click on Profile icon
     def test_redirect_more_menu(self, driver):
         try:
             # Determine which profile name to use
@@ -136,8 +135,11 @@ class TestFreeTrial:
 
     # Click on 'My Plan' to redirect Plan page
     def test_redirect_plan_page(self):
-        self.profile.select_my_plan_option()
-
+        try:
+            self.profile.select_my_plan_option()
+        except Exception as e:
+            logging.error(f"Error while redirecting to Plan page: {e}")
+            pytest.fail(f"Failed to redirect to Plan page: {e}")
 
     # Select 'Monthly Plan'
     def test_select_monthly_plan(self, driver):
@@ -164,47 +166,21 @@ class TestFreeTrial:
             pytest.fail(f"Failed to activate free trial plan: {e}")
 
     # Click on 'Pay Now' button
-    # @pytest.mark.skip
     def test_click_on_pay_button(self):
         try:
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.PAY_BUTTON_LOCATOR)
             logging.info("Clicked on Pay button.")
         except Exception as e:
             logging.error(f"Error while clicking on Pay button: {e}")
+            pytest.fail(f"Failed to click on Pay button: {e}")
 
     # Make payment using RazorPay
     def test_make_payment(self, driver):
         try:
-            # Initialize WebDriverWait with the driver and timeout
-            wait = WebDriverWait(driver, 30)  # Use the passed 'driver' argument
-
-            # Wait until the element is visible using its XPath locator
-            ele = wait.until(EC.visibility_of_element_located((AppiumBy.XPATH, self.razorpay.BRAND_NAME_LOCATOR)))
-
-            # Get the Brand name
-            brand_name = ele.get_attribute("text")
-            print(f'\nBrand Name: {brand_name}')
-            assert brand_name == 'Saregama India Ltd.', f"Expected brand name to be 'Saregama India Ltd.', but got {brand_name}"
-
-            # Select payment type 'UPI'
-            self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.UPI_FIELD_LOCATOR)
-
-            # Click on the UPI text field
-            self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.UPI_TEXT_FIELD_LOCATOR)
-
-            # Wait for the UPI ID input field and enter UPI ID
-            fill_upi_id = wait.until(
-                EC.presence_of_element_located((AppiumBy.XPATH, self.razorpay.UPI_TEXT_FIELD_LOCATOR)))
-            fill_upi_id.send_keys(UPI_ID)
-
-            # Click on 'Pay Now' button
-            self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.PAY_NOW_BUTTON_LOCATOR)
-            logging.info("Clicked on Pay Now button.")
-            time.sleep(1)
-
+            self.razorpay.test_upi_payment(driver)
         except Exception as e:
-            logging.error(f"Error while making payment: {e}")
-            raise  # Re-raise the exception to ensure the test fails appropriately
+            logging.error(f"Error while making payment using RazorPay: {e}")
+            pytest.fail(f"Failed to make payment using RazorPay: {e}")
 
     # Click on 'Start Learning' button
     def test_start_learning(self):

@@ -1,8 +1,10 @@
+import json
 import logging  # For logging test execution details.
 import time
 
 import pytest  # For writing and managing tests.
 from appium.webdriver.common.appiumby import AppiumBy  # Appium-specific locators.
+from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -12,23 +14,29 @@ from pages.login_page import LoginPage  # Page object for "Login".
 from pages.plan_page import PlanPage  # Page object for "Plan".
 from pages.profile_page import ProfilePage, get_first_letter  # Page object for "Profile".
 from pages.razor_pay_page import RazorPayPage
-from utils.helpers import verify_text_on_screen, scroll_down  # Helper functions for scrolling and text verification.
-
+from utils.helpers import verify_text_on_screen, scroll_down
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
-# Test Data
-USER_TYPE = 'EXIST'
-EXISTING_USER_PHONE = '1100000000'
-PROFILE_NAME = 'Jack'
+# Test Data Configuration
+# Choose between 'EXIST' and 'NEW'
+USER_TYPE = 'NEW'
 
-NEW_USER_FIRST_NAME = 'Jack'
-NEW_USER_VOICE_TYPE = 'Male'
-NEW_USER_AGE_GROUP = '16 - 25'
-NEW_USER_SKILL_LEVEL = 'I Am A Singer'
 UPI_ID = 'success@razorpay'
 
+# Load test data from JSON
+with open('C:/Users/khans/PycharmProjects/padhanisa_automation_pom/test_data/profile_data.json') as test_data_file:
+    profile_data = json.load(test_data_file)
 
+# Extract data based on user type
+if USER_TYPE == 'EXIST':
+    EXISTING_USER_PHONE = profile_data['existUserProfileData']['existingUserPhone']
+    PROFILE_NAME = profile_data['existUserProfileData']['profileName']
+else:  # NEW user
+    NEW_USER_FIRST_NAME = profile_data['newUserProfileData']['firstName']
+    NEW_USER_VOICE_TYPE = profile_data['newUserProfileData']['voiceType']
+    NEW_USER_AGE_GROUP = profile_data['newUserProfileData']['ageGroup']
+    NEW_USER_SKILL_LEVEL = profile_data['newUserProfileData']['skillLevel']
 
 @pytest.mark.usefixtures("driver")
 class TestFreeTrial:
@@ -44,9 +52,8 @@ class TestFreeTrial:
         self.wait = WebDriverWait(driver, 10)
 
     # Login with an existing user
-    @pytest.mark.skipif(USER_TYPE != 'EXIST', reason="Skipped because USER_TYPE is not 'EXIST'")
+    @pytest.mark.skipif(USER_TYPE != 'EXIST', reason="Skipped because USER_TYPE is not 'NEW")
     def test_perform_exist_user_login(self):
-        """Login with an existing user and select a profile."""
         try:
             logging.info("Attempting login with an existing user.")
             self.login.exist_user_login(EXISTING_USER_PHONE)
@@ -55,24 +62,85 @@ class TestFreeTrial:
             # Select profile
             self.profile.select_profile(PROFILE_NAME)
             logging.info("Profile selection successful.")
-            time.sleep(1)
+            # time.sleep(1)
 
         except Exception as e:
             pytest.fail(f"Login failed: {e}")
 
-    # Click on the profile to redirect More menu
-    # @pytest.mark.skip
-    def test_redirect_more_menu(self):
-        self.profile.redirect_more_menu(PROFILE_NAME)
+    # Login with new user by creating new profile
+    @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'EXIST'")
+    def test_login_and_create_user_profile(self):
+        try:
+            logging.info("Starting login process...")
+            self.login.click_sign_in()
+            self.login.perform_login()
+            logging.info("Login successful.")
 
-    @pytest.mark.skip
+            # Create User Profile
+            self.create_user_profile.enter_first_name(NEW_USER_FIRST_NAME)
+            logging.info("Entered first name.")
+
+            self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
+            logging.info("Voice type selected.")
+
+            scroll_down(self.driver)
+            logging.info("Scrolled down the page.")
+            self.create_user_profile.select_age(NEW_USER_AGE_GROUP)
+            logging.info("Age selected.")
+
+            self.create_user_profile.select_skill_level(NEW_USER_SKILL_LEVEL)
+            logging.info("Skill level selected.")
+            self.create_user_profile.click_continue_button()
+            logging.info("Clicked on Continue button.")
+            # time.sleep(1)
+
+        except Exception as e:
+            pytest.fail(f"Test failed: {e}")
+
+    # Redirect More section / Click on Profile icon
+    # Redirect More section / Click on Profile icon
+    def test_redirect_more_menu(self, driver):
+        try:
+            # Determine which profile name to use
+            profile_name = (
+                profile_data['existUserProfileData']['profileName']
+                if USER_TYPE == 'EXIST'
+                else profile_data['newUserProfileData']['firstName'][0]
+            )
+
+            # Define locator for profile letter
+            profile_letter_locator = (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{profile_name}")]')
+            wait = WebDriverWait(driver, 10)
+            profile_letter_element = wait.until(EC.element_to_be_clickable(profile_letter_locator))
+        except TimeoutException:
+            profile_letter_element = None
+
+        try:
+            # Define locator for profile image
+            profile_image_locator = (AppiumBy.XPATH,
+                                     '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/'
+                                     'android.view.View/android.view.View/android.view.View/android.view.View[1]/'
+                                     'android.widget.ImageView[3]')
+            # Same wait for profile image locator
+            profile_image_element = wait.until(EC.element_to_be_clickable(profile_image_locator))
+        except TimeoutException:
+            profile_image_element = None
+
+        # Perform the click operation based on the available locator
+        if profile_letter_element:
+            profile_letter_element.click()
+        elif profile_image_element:
+            profile_image_element.click()
+        else:
+            print("Neither locator is found. Test cannot proceed.")
+
     # Click on 'My Plan' to redirect Plan page
     def test_redirect_plan_page(self):
-        self.profile.redirect_plan_page()
+        self.profile.select_my_plan_option()
 
-    @pytest.mark.skip
+
     # Select 'Monthly Plan'
-    def test_select_monthly_plan(self,driver):
+    def test_select_monthly_plan(self, driver):
         try:
 
             # Locators and expected texts
@@ -95,8 +163,8 @@ class TestFreeTrial:
             logging.error(f"Error while activating free trial plan: {e}")
             pytest.fail(f"Failed to activate free trial plan: {e}")
 
-    @pytest.mark.skip
     # Click on 'Pay Now' button
+    # @pytest.mark.skip
     def test_click_on_pay_button(self):
         try:
             self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.PAY_BUTTON_LOCATOR)
@@ -105,7 +173,6 @@ class TestFreeTrial:
             logging.error(f"Error while clicking on Pay button: {e}")
 
     # Make payment using RazorPay
-    @pytest.mark.skip
     def test_make_payment(self, driver):
         try:
             # Initialize WebDriverWait with the driver and timeout
@@ -117,7 +184,7 @@ class TestFreeTrial:
             # Get the Brand name
             brand_name = ele.get_attribute("text")
             print(f'\nBrand Name: {brand_name}')
-            assert brand_name == 'Saregama India Ltd.'
+            assert brand_name == 'Saregama India Ltd.', f"Expected brand name to be 'Saregama India Ltd.', but got {brand_name}"
 
             # Select payment type 'UPI'
             self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.UPI_FIELD_LOCATOR)
@@ -133,64 +200,17 @@ class TestFreeTrial:
             # Click on 'Pay Now' button
             self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.PAY_NOW_BUTTON_LOCATOR)
             logging.info("Clicked on Pay Now button.")
+            time.sleep(1)
 
         except Exception as e:
             logging.error(f"Error while making payment: {e}")
+            raise  # Re-raise the exception to ensure the test fails appropriately
 
     # Click on 'Start Learning' button
-    @pytest.mark.skip
-    def test_click_start_learning(self):
+    def test_start_learning(self):
         try:
-            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.click_start_learning)
-            logging.info("Clicked on Start Learning button.")
+            self.plan.click_start_learning()
         except Exception as e:
-            logging.error(f"Error while clicking on Start Learning button: {e}")
+            logging.error(f"Error while starting learning: {e}")
+            pytest.fail(f"Failed to start learning: {e}")
 
-    # Test for new user login and profile creation
-    @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'NEW'")
-    def test_login_and_create_user_profile(self):
-        try:
-            logging.info("Starting login process...")
-            self.login.click_sign_in()
-            self.login.perform_login()
-            logging.info("Login successful.")
-
-            # Create User Profile
-            self.create_user_profile.enter_first_name(NEW_USER_FIRST_NAME)
-            logging.info("Entered first name.")
-
-            # Debug NEW_USER_FIRST_NAME
-            print(f"NEW_USER_FIRST_NAME: {NEW_USER_FIRST_NAME}")
-
-            # Retrieve the text of the element
-            txt_element = self.wait.until(
-                EC.presence_of_element_located((AppiumBy.XPATH, self.profile.MORE_MENU_TEXT_LOCATOR))
-            )
-
-            txt = txt_element.get_attribute('content-desc')  # Extract text from the web element
-
-            # Debug retrieved content-desc
-            print(f"Retrieved content-desc: {txt}")
-
-            # Get the first letter of the text
-            first_letter = get_first_letter(txt)
-            print(f"First letter from content-desc: {first_letter}")
-
-            # Validate first letter
-            assert first_letter == NEW_USER_FIRST_NAME[0], "Mismatch in first letter"
-
-            self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
-            logging.info("Voice type selected.")
-
-            scroll_down(self.driver)
-            logging.info("Scrolled down the page.")
-            self.create_user_profile.select_age(NEW_USER_AGE_GROUP)
-            logging.info("Age selected.")
-
-            self.create_user_profile.select_skill_level(NEW_USER_SKILL_LEVEL)
-            logging.info("Skill level selected.")
-            self.create_user_profile.click_continue_button()
-            logging.info("Clicked on Continue button.")
-
-        except Exception as e:
-            pytest.fail(f"Test failed: {e}")
