@@ -1,0 +1,12 @@
+{
+  "existUserProfileData": {
+    "existingUserPhone": "1100000000",
+    "profileName": "Jack"
+  },
+  "newUserProfileData": {
+    "firstName": "Jack",
+    "voiceType": "Male",
+    "ageGroup": "16 - 25",
+    "skillLevel": "I Am A Singer"
+  }
+}

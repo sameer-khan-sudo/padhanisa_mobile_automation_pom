@@ -1,3 +1,4 @@
+import json
 import logging  # For logging test execution details.
 import time
 
@@ -18,22 +19,25 @@ from utils.helpers import verify_text_on_screen, scroll_down  # Helper functions
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
-# Test Data
-# USER_TYPE = 'EXIST'
+# Test Data Configuration
+# Choose between 'EXIST' and 'NEW'
 USER_TYPE = 'NEW'
 
-EXISTING_USER_PHONE = '1100000000'
-# PROFILE_NAME = 'Strange'
-PROFILE_NAME = 'Jack'
-
-
-NEW_USER_FIRST_NAME = 'Jack'
-NEW_USER_VOICE_TYPE = 'Male'
-NEW_USER_AGE_GROUP = '16 - 25'
-NEW_USER_SKILL_LEVEL = 'I Am A Singer'
 UPI_ID = 'success@razorpay'
 
+# Load test data from JSON
+with open('C:/Users/khans/PycharmProjects/padhanisa_automation_pom/test_data/profile_data.json') as test_data_file:
+    profile_data = json.load(test_data_file)
 
+# Extract data based on user type
+if USER_TYPE == 'EXIST':
+    EXISTING_USER_PHONE = profile_data['existUserProfileData']['existingUserPhone']
+    PROFILE_NAME = profile_data['existUserProfileData']['profileName']
+else:  # NEW user
+    NEW_USER_FIRST_NAME = profile_data['newUserProfileData']['firstName']
+    NEW_USER_VOICE_TYPE = profile_data['newUserProfileData']['voiceType']
+    NEW_USER_AGE_GROUP = profile_data['newUserProfileData']['ageGroup']
+    NEW_USER_SKILL_LEVEL = profile_data['newUserProfileData']['skillLevel']
 
 @pytest.mark.usefixtures("driver")
 class TestFreeTrial:
@@ -49,9 +53,8 @@ class TestFreeTrial:
         self.wait = WebDriverWait(driver, 10)
 
     # Login with an existing user
-    @pytest.mark.skipif(USER_TYPE != 'EXIST', reason="Skipped because USER_TYPE is not 'EXIST'")
+    @pytest.mark.skipif(USER_TYPE != 'EXIST', reason="Skipped because USER_TYPE is not 'NEW")
     def test_perform_exist_user_login(self):
-        """Login with an existing user and select a profile."""
         try:
             logging.info("Attempting login with an existing user.")
             self.login.exist_user_login(EXISTING_USER_PHONE)
@@ -66,7 +69,7 @@ class TestFreeTrial:
             pytest.fail(f"Login failed: {e}")
 
     # Login with new user by creating new profile
-    @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'NEW'")
+    @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'EXIST'")
     def test_login_and_create_user_profile(self):
         try:
             logging.info("Starting login process...")
@@ -92,19 +95,18 @@ class TestFreeTrial:
             logging.info("Clicked on Continue button.")
             time.sleep(1)
 
-
         except Exception as e:
             pytest.fail(f"Test failed: {e}")
 
     # Redirect More section / Click on Profile icon
     def test_redirect_more_menu(self):
         try:
-            # Get the profile names dynamically
-            exist_profile_name = PROFILE_NAME[0]
-            new_profile_name = NEW_USER_FIRST_NAME[0]
-
             # Determine which profile name to use
-            profile_name = exist_profile_name or new_profile_name
+            profile_name = (
+                profile_data['existUserProfileData']['profileName']
+                if USER_TYPE == 'EXIST'
+                else profile_data['newUserProfileData']['firstName'][0]
+            )
 
             # Check if the profile letter locator is visible
             profile_letter_locator = self.wait.until(
@@ -112,7 +114,6 @@ class TestFreeTrial:
                     (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{profile_name}")]')
                 )
             )
-            print("Profile Letter Locator is found")
         except TimeoutException:
             profile_letter_locator = None
             print("Profile Letter Locator is not found")
@@ -128,14 +129,89 @@ class TestFreeTrial:
             print("Profile Image Locator is found")
         except TimeoutException:
             profile_image_locator = None
-            print("Profile Image Locator is not found")
 
         # Perform the click operation based on available locator
         if profile_letter_locator:
-            print("Clicking on Profile Letter Locator")
             profile_letter_locator.click()
         elif profile_image_locator:
-            print("Clicking on Profile Image Locator")
             profile_image_locator.click()
         else:
             print("Neither locator is found. Test cannot proceed.")
+
+    # Click on 'My Plan' to redirect Plan page
+    def test_redirect_plan_page(self):
+        self.profile.select_my_plan_option()
+
+    # Select 'Monthly Plan'
+    def test_select_monthly_plan(self, driver):
+        try:
+
+            # Locators and expected texts
+            locators = [
+                self.plan.GO_PREMIUM_HEADER_LOCATOR,
+                self.plan.FREE_TRIAL_BENEFITS_LOCATOR,
+            ]
+            expected_texts = [
+                self.plan.EXPECTED_GO_PREMIUM_HEADER_TEXT,
+                self.plan.EXPECTED_FREE_TRIAL_BENEFITS_TEXT,
+            ]
+
+            #  Verify actual and expected text on the screen
+            verify_text_on_screen(driver, locators, expected_texts)
+
+            # Select the Monthly Plan
+            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.MONTHLY_PLAN_FIELD_LOCATOR)
+
+        except Exception as e:
+            logging.error(f"Error while activating free trial plan: {e}")
+            pytest.fail(f"Failed to activate free trial plan: {e}")
+
+    # Click on 'Pay Now' button
+    # @pytest.mark.skip
+    def test_click_on_pay_button(self):
+        try:
+            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.PAY_BUTTON_LOCATOR)
+            logging.info("Clicked on Pay button.")
+        except Exception as e:
+            logging.error(f"Error while clicking on Pay button: {e}")
+
+    # Make payment using RazorPay
+    def test_make_payment(self, driver):
+        try:
+            # Initialize WebDriverWait with the driver and timeout
+            wait = WebDriverWait(driver, 30)  # Use the passed 'driver' argument
+
+            # Wait until the element is visible using its XPath locator
+            ele = wait.until(EC.visibility_of_element_located((AppiumBy.XPATH, self.razorpay.BRAND_NAME_LOCATOR)))
+
+            # Get the Brand name
+            brand_name = ele.get_attribute("text")
+            print(f'\nBrand Name: {brand_name}')
+            assert brand_name == 'Saregama India Ltd.'
+
+            # Select payment type 'UPI'
+            self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.UPI_FIELD_LOCATOR)
+
+            # Click on the UPI text field
+            self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.UPI_TEXT_FIELD_LOCATOR)
+
+            # Wait for the UPI ID input field and enter UPI ID
+            fill_upi_id = wait.until(
+                EC.presence_of_element_located((AppiumBy.XPATH, self.razorpay.UPI_TEXT_FIELD_LOCATOR)))
+            fill_upi_id.send_keys(UPI_ID)
+
+            # Click on 'Pay Now' button
+            self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.PAY_NOW_BUTTON_LOCATOR)
+            logging.info("Clicked on Pay Now button.")
+
+        except Exception as e:
+            logging.error(f"Error while making payment: {e}")
+
+    # Click on 'Start Learning' button
+    @pytest.mark.skip
+    def test_click_start_learning(self):
+        try:
+            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.click_start_learning)
+            logging.info("Clicked on Start Learning button.")
+        except Exception as e:
+            logging.error(f"Error while clicking on Start Learning button: {e}")
