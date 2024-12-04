@@ -19,7 +19,9 @@ from utils.helpers import verify_text_on_screen, scroll_down  # Helper functions
 logging.basicConfig(level=logging.INFO)
 
 # Test Data
-USER_TYPE = 'EXIST'
+# USER_TYPE = 'EXIST'
+USER_TYPE = 'NEW'
+
 EXISTING_USER_PHONE = '1100000000'
 # PROFILE_NAME = 'Strange'
 PROFILE_NAME = 'Jack'
@@ -58,38 +60,77 @@ class TestFreeTrial:
             # Select profile
             self.profile.select_profile(PROFILE_NAME)
             logging.info("Profile selection successful.")
-            time.sleep(2)
+            time.sleep(1)
 
         except Exception as e:
             pytest.fail(f"Login failed: {e}")
 
+    # Login with new user by creating new profile
+    @pytest.mark.skipif(USER_TYPE != 'NEW', reason="Skipped because USER_TYPE is not 'NEW'")
+    def test_login_and_create_user_profile(self):
+        try:
+            logging.info("Starting login process...")
+            self.login.click_sign_in()
+            self.login.perform_login()
+            logging.info("Login successful.")
+
+            # Create User Profile
+            self.create_user_profile.enter_first_name(NEW_USER_FIRST_NAME)
+            logging.info("Entered first name.")
+
+            self.create_user_profile.select_voice_type(NEW_USER_VOICE_TYPE)
+            logging.info("Voice type selected.")
+
+            scroll_down(self.driver)
+            logging.info("Scrolled down the page.")
+            self.create_user_profile.select_age(NEW_USER_AGE_GROUP)
+            logging.info("Age selected.")
+
+            self.create_user_profile.select_skill_level(NEW_USER_SKILL_LEVEL)
+            logging.info("Skill level selected.")
+            self.create_user_profile.click_continue_button()
+            logging.info("Clicked on Continue button.")
+            time.sleep(1)
+
+
+        except Exception as e:
+            pytest.fail(f"Test failed: {e}")
+
     # Redirect More section / Click on Profile icon
     def test_redirect_more_menu(self):
         try:
-            # Get the profile name
-            name = PROFILE_NAME[0]
-            # print('Name : ', name)
+            # Get the profile names dynamically
+            exist_profile_name = PROFILE_NAME[0]
+            new_profile_name = NEW_USER_FIRST_NAME[0]
+
+            # Determine which profile name to use
+            profile_name = exist_profile_name or new_profile_name
 
             # Check if the profile letter locator is visible
             profile_letter_locator = self.wait.until(
                 EC.visibility_of_element_located(
-                    (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{name}")]'))
+                    (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{profile_name}")]')
+                )
             )
             print("Profile Letter Locator is found")
         except TimeoutException:
             profile_letter_locator = None
+            print("Profile Letter Locator is not found")
 
         try:
             # Check if the profile image locator is visible
             profile_image_locator = self.wait.until(
-                EC.visibility_of_element_located((AppiumBy.XPATH,
-                                                  '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.ImageView[3]'))
+                EC.visibility_of_element_located(
+                    (AppiumBy.XPATH,
+                     '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.ImageView[3]')
+                )
             )
             print("Profile Image Locator is found")
         except TimeoutException:
             profile_image_locator = None
+            print("Profile Image Locator is not found")
 
-        # Perform the click operation
+        # Perform the click operation based on available locator
         if profile_letter_locator:
             print("Clicking on Profile Letter Locator")
             profile_letter_locator.click()
