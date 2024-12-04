@@ -4,7 +4,7 @@ import time
 
 import pytest  # For writing and managing tests.
 from appium.webdriver.common.appiumby import AppiumBy  # Appium-specific locators.
-from selenium.common import NoSuchElementException, TimeoutException
+from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -14,8 +14,7 @@ from pages.login_page import LoginPage  # Page object for "Login".
 from pages.plan_page import PlanPage  # Page object for "Plan".
 from pages.profile_page import ProfilePage, get_first_letter  # Page object for "Profile".
 from pages.razor_pay_page import RazorPayPage
-from utils.helpers import verify_text_on_screen, scroll_down  # Helper functions for scrolling and text verification.
-
+from utils.helpers import verify_text_on_screen, scroll_down
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
@@ -63,7 +62,7 @@ class TestFreeTrial:
             # Select profile
             self.profile.select_profile(PROFILE_NAME)
             logging.info("Profile selection successful.")
-            time.sleep(1)
+            # time.sleep(1)
 
         except Exception as e:
             pytest.fail(f"Login failed: {e}")
@@ -93,13 +92,14 @@ class TestFreeTrial:
             logging.info("Skill level selected.")
             self.create_user_profile.click_continue_button()
             logging.info("Clicked on Continue button.")
-            time.sleep(1)
+            # time.sleep(1)
 
         except Exception as e:
             pytest.fail(f"Test failed: {e}")
 
     # Redirect More section / Click on Profile icon
-    def test_redirect_more_menu(self):
+    # Redirect More section / Click on Profile icon
+    def test_redirect_more_menu(self, driver):
         try:
             # Determine which profile name to use
             profile_name = (
@@ -108,39 +108,36 @@ class TestFreeTrial:
                 else profile_data['newUserProfileData']['firstName'][0]
             )
 
-            # Check if the profile letter locator is visible
-            profile_letter_locator = self.wait.until(
-                EC.visibility_of_element_located(
-                    (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{profile_name}")]')
-                )
-            )
+            # Define locator for profile letter
+            profile_letter_locator = (AppiumBy.XPATH, f'//android.view.View[contains(@content-desc,"{profile_name}")]')
+            wait = WebDriverWait(driver, 10)
+            profile_letter_element = wait.until(EC.element_to_be_clickable(profile_letter_locator))
         except TimeoutException:
-            profile_letter_locator = None
-            print("Profile Letter Locator is not found")
+            profile_letter_element = None
 
         try:
-            # Check if the profile image locator is visible
-            profile_image_locator = self.wait.until(
-                EC.visibility_of_element_located(
-                    (AppiumBy.XPATH,
-                     '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.ImageView[3]')
-                )
-            )
-            print("Profile Image Locator is found")
+            # Define locator for profile image
+            profile_image_locator = (AppiumBy.XPATH,
+                                     '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/'
+                                     'android.view.View/android.view.View/android.view.View/android.view.View[1]/'
+                                     'android.widget.ImageView[3]')
+            # Same wait for profile image locator
+            profile_image_element = wait.until(EC.element_to_be_clickable(profile_image_locator))
         except TimeoutException:
-            profile_image_locator = None
+            profile_image_element = None
 
-        # Perform the click operation based on available locator
-        if profile_letter_locator:
-            profile_letter_locator.click()
-        elif profile_image_locator:
-            profile_image_locator.click()
+        # Perform the click operation based on the available locator
+        if profile_letter_element:
+            profile_letter_element.click()
+        elif profile_image_element:
+            profile_image_element.click()
         else:
             print("Neither locator is found. Test cannot proceed.")
 
     # Click on 'My Plan' to redirect Plan page
     def test_redirect_plan_page(self):
         self.profile.select_my_plan_option()
+
 
     # Select 'Monthly Plan'
     def test_select_monthly_plan(self, driver):
@@ -187,7 +184,7 @@ class TestFreeTrial:
             # Get the Brand name
             brand_name = ele.get_attribute("text")
             print(f'\nBrand Name: {brand_name}')
-            assert brand_name == 'Saregama India Ltd.'
+            assert brand_name == 'Saregama India Ltd.', f"Expected brand name to be 'Saregama India Ltd.', but got {brand_name}"
 
             # Select payment type 'UPI'
             self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.UPI_FIELD_LOCATOR)
@@ -203,15 +200,17 @@ class TestFreeTrial:
             # Click on 'Pay Now' button
             self.razorpay.wait_and_click(by=AppiumBy.XPATH, value=self.razorpay.PAY_NOW_BUTTON_LOCATOR)
             logging.info("Clicked on Pay Now button.")
+            time.sleep(1)
 
         except Exception as e:
             logging.error(f"Error while making payment: {e}")
+            raise  # Re-raise the exception to ensure the test fails appropriately
 
     # Click on 'Start Learning' button
-    @pytest.mark.skip
-    def test_click_start_learning(self):
+    def test_start_learning(self):
         try:
-            self.plan.wait_and_click(AppiumBy.XPATH, value=self.plan.click_start_learning)
-            logging.info("Clicked on Start Learning button.")
+            self.plan.click_start_learning()
         except Exception as e:
-            logging.error(f"Error while clicking on Start Learning button: {e}")
+            logging.error(f"Error while starting learning: {e}")
+            pytest.fail(f"Failed to start learning: {e}")
+

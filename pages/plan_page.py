@@ -1,10 +1,12 @@
-from appium.webdriver.common.appiumby import AppiumBy
-from datetime import datetime, timedelta
+import logging
 
+from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_class import BaseClass
 from utils.helpers import get_formatted_expiry_date
@@ -21,7 +23,7 @@ class PlanPage(BaseClass):
     FREE_TRIAL_BUTTON = (AppiumBy.XPATH, '//android.widget.ImageView[@content-desc="Free Trial"]')
     CONTINUE_BUTTON_LOCATOR = '//android.widget.ImageView[@content-desc="Continue"]'
     PAY_BUTTON_LOCATOR = '//android.widget.ImageView[contains(@content-desc,"Proceed to Pay")]'
-    START_LEARNING_BUTTON_LOCATOR = '//android.widget.ImageView[@content-desc="Start Learning"]'
+    START_LEARNING_BUTTON_LOCATOR = 'new UiSelector().description("Start Learning")'
 
     # Other Locators
     FREE_TRIAL_NUDGE = (AppiumBy.XPATH, '//android.view.View[@content-desc="Start Trial"]')
@@ -73,4 +75,13 @@ class PlanPage(BaseClass):
 
     # Click on 'Start Learning' button
     def click_start_learning(self):
-        self.driver.find_element(*self.START_LEARNING_BUTTON_LOCATOR).click()
+        try:
+            # Wait for the Start Learning button to be visible before clicking
+            start_learning_button = WebDriverWait(self.driver, 30).until(
+                EC.visibility_of_element_located((AppiumBy.ANDROID_UIAUTOMATOR, self.START_LEARNING_BUTTON_LOCATOR))
+            )
+            start_learning_button.click()
+            logging.info("Clicked on Start Learning button.")
+        except Exception as e:
+            logging.error(f"Error while clicking on Start Learning button: {e}")
+            raise  # Re-raise the exception to ensure the test fails appropriately

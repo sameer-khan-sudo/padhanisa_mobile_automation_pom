@@ -1,3 +1,4 @@
+import logging
 import random
 import subprocess
 import time
@@ -201,4 +202,3 @@ def get_formatted_expiry_date(days):
     current_date = datetime.now()
     expiry_date = current_date + timedelta(days=days)
     return expiry_date.strftime("%d %B %Y")
-
