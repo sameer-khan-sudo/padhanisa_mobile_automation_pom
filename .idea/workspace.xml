@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="108969e1-8add-4527-96d1-ba3d020db0fe" name="Changes" comment="Monthly plan activation.">
+      <change afterPath="$PROJECT_DIR$/tests/code.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_code.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/profile_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/profile_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_index.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_purchase_monthly_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_purchase_monthly_plan.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,12 +23,14 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="dev-1.0" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -53,26 +55,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests in page_profile_page.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_concepts_mode.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_free_trial.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_index.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_practice_mode.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_purchase_monthly_plan.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.base_class.executor&quot;: &quot;Run&quot;,
-    &quot;Python.create_profile_page.executor&quot;: &quot;Run&quot;,
-    &quot;Python.index.executor&quot;: &quot;Run&quot;,
-    &quot;Python.plan_page.executor&quot;: &quot;Run&quot;,
-    &quot;Python.practice_mode_page.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in page_profile_page.py.executor": "Run",
+    "Python tests.Python tests in test_code.py.executor": "Run",
+    "Python tests.Python tests in test_concepts_mode.py.executor": "Run",
+    "Python tests.Python tests in test_free_trial.py.executor": "Run",
+    "Python tests.Python tests in test_index.py.executor": "Run",
+    "Python tests.Python tests in test_practice_mode.py.executor": "Run",
+    "Python tests.Python tests in test_purchase_monthly_plan.py.executor": "Run",
+    "Python.base_class.executor": "Run",
+    "Python.code.executor": "Run",
+    "Python.create_profile_page.executor": "Run",
+    "Python.index.executor": "Run",
+    "Python.plan_page.executor": "Run",
+    "Python.practice_mode_page.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/khans/PycharmProjects/padhanisa_automation_pom/tests",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\khans\PycharmProjects\padhanisa_automation_pom\tests" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\khans\PycharmProjects\padhanisa_automation_pom\tests" />
+      <recent name="C:\Users\khans\PycharmProjects\padhanisa_automation_pom\pages" />
       <recent name="C:\app_automation" />
       <recent name="C:\app_automation\tests" />
     </key>
@@ -389,7 +399,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732279105582</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Monthly plan activation.">
+      <option name="closed" value="true" />
+      <created>1732604770999</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1732604770999</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -415,5 +433,16 @@
     <MESSAGE value="Free trial activation." />
     <MESSAGE value="Monthly plan activation." />
     <option name="LAST_COMMIT_MESSAGE" value="Monthly plan activation." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/test_purchase_monthly_plan.py</url>
+          <line>64</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
